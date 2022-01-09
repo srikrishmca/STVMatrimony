@@ -132,6 +132,12 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
@@ -141,5 +147,8 @@
       <Project>{FE79B9F6-34BA-470F-882C-BA71228CC028}</Project>
       <Name>STVMatrimony</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Profile.png" />
   </ItemGroup>
 </Project>
