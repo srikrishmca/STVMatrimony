@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimony.Android", "STVMatrimony\STVMatrimony.Android\STVMatrimony.Android.csproj", "{6E307E38-B9D4-4A4B-B065-B7CCBED3D905}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimony.iOS", "STVMatrimony\STVMatrimony.iOS\STVMatrimony.iOS.csproj", "{9217F800-CD17-41C8-A666-93B08D1C663E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimony", "STVMatrimony\STVMatrimony\STVMatrimony.csproj", "{17689DB8-4AA3-4671-BD22-8D75493D170B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimony", "STVMatrimony\STVMatrimony\STVMatrimony.csproj", "{17689DB8-4AA3-4671-BD22-8D75493D170B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimonyAPI", "STVMatrimonyAPI\STVMatrimonyAPI.csproj", "{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,18 @@ Global
 		{17689DB8-4AA3-4671-BD22-8D75493D170B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{17689DB8-4AA3-4671-BD22-8D75493D170B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{17689DB8-4AA3-4671-BD22-8D75493D170B}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Release|iPhone.Build.0 = Release|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{E6A9F1B6-BD2F-407A-8ABF-2155B1A3F51E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
