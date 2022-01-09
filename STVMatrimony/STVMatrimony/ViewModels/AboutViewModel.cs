@@ -10,7 +10,7 @@ namespace STVMatrimony.ViewModels
         public AboutViewModel()
         {
             Title = "About";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
+            OpenWebCommand = new Command(async () => await Application.Current.MainPage.DisplayAlert("Matrimony","Under development","OK"));
         }
 
         public ICommand OpenWebCommand { get; }
