@@ -12,6 +12,7 @@ namespace STVMatrimony.ViewModels
         private string itemId;
         private string text;
         private string description;
+        private string imageURL;
         public string Id { get; set; }
 
         public string Text
@@ -24,6 +25,11 @@ namespace STVMatrimony.ViewModels
         {
             get => description;
             set => SetProperty(ref description, value);
+        }
+        public string ImageURL
+        {
+            get => imageURL;
+            set => SetProperty(ref imageURL, value);
         }
 
         public string ItemId
@@ -47,6 +53,7 @@ namespace STVMatrimony.ViewModels
                 Id = item.Id;
                 Text = item.Text;
                 Description = item.Description;
+                ImageURL = item.ImageURL;
             }
             catch (Exception)
             {
