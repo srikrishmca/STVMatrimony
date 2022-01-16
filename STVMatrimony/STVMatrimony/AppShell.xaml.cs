@@ -1,12 +1,10 @@
-﻿using STVMatrimony.ViewModels;
-using STVMatrimony.Views;
+﻿using STVMatrimony.Views;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace STVMatrimony
 {
-    public partial class AppShell : Xamarin.Forms.Shell
+    public partial class AppShell : Shell
     {
         public AppShell()
         {
@@ -17,7 +15,7 @@ namespace STVMatrimony
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Current.GoToAsync("//LoginPage");
         }
     }
 }

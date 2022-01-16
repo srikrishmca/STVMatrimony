@@ -70,6 +70,13 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+            <Style Class="ListItemLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Gray"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="LineBreakMode" Value="NoWrap"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
         </ResourceDictionary>
     </Shell.Resources>
 
