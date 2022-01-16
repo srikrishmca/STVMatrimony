@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace STVMatrimonyServices
+namespace STVMatrimony.Services
 {
     public class ServiceConfig
     {

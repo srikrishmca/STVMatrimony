@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32002.185
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimony.Android", "STVMatrimony\STVMatrimony.Android\STVMatrimony.Android.csproj", "{6E307E38-B9D4-4A4B-B065-B7CCBED3D905}"
 EndProject
@@ -9,13 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimony.iOS", "STVMatr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimony", "STVMatrimony\STVMatrimony\STVMatrimony.csproj", "{17689DB8-4AA3-4671-BD22-8D75493D170B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimonyAPI", "STVMatrimonyAPI\STVMatrimonyAPI.csproj", "{4B3431C1-1104-40EB-8507-6DF232097ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimonyAPI", "STVMatrimonyAPI\STVMatrimonyAPI.csproj", "{4B3431C1-1104-40EB-8507-6DF232097ABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimonyServices", "STVMatrimonyServices\STVMatrimonyServices.csproj", "{EA866BF9-2765-430F-8206-136BD4C8AE61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimony.Services", "STVMatrimony.Services\STVMatrimony.Services.csproj", "{EA866BF9-2765-430F-8206-136BD4C8AE61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimonyWeb", "STVMatrimonyWeb\STVMatrimonyWeb.csproj", "{CA743016-9F34-4EF7-ABBD-CC10E5D9C9C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimonyWeb", "STVMatrimonyWeb\STVMatrimonyWeb.csproj", "{CA743016-9F34-4EF7-ABBD-CC10E5D9C9C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STVMatrimonyModels", "STVMatrimonyModels\STVMatrimonyModels.csproj", "{1AF2B97F-0004-489D-A6A6-FC873637E492}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimonyModels", "STVMatrimonyModels\STVMatrimonyModels.csproj", "{1AF2B97F-0004-489D-A6A6-FC873637E492}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

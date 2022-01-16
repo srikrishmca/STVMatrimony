@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using STVMatrimonyModels;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using STVMatrimonyModels;
-namespace STVMatrimonyServices
-{
-    public class CommonService
-    {
-        private static readonly CommonService instance = new CommonService();
 
-        // Explicit static constructor to tell C# compiler
-        // not to mark type as beforefieldinit
-        static CommonService()
-        {
-        }
-        public static CommonService Instance
-        {
-            get => instance;
-        }
+namespace STVMatrimony.Services
+{
+    public class CommonService : ICommonService
+    {
+      
         public async Task<ApiResponse<T>> GetResponseAsync<T>(string url)
         {
             try
