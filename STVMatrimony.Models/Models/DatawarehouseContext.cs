@@ -25,14 +25,7 @@ namespace STVMatrimony.Models
         public virtual DbSet<Photos> Photos { get; set; }
         public virtual DbSet<Preferences> Preferences { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=103.102.234.23;Database=mk_matrimonydb;User ID=Maadhu;Password=Welcome@123;");
-            }
-        }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
