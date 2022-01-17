@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace STVMatrimonyModels
+namespace STVMatrimony.APIModels
 {
     public class ServiceConstants
     {

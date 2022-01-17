@@ -1,4 +1,4 @@
-﻿using STVMatrimonyModels;
+﻿using STVMatrimony.APIModels;
 using System.Threading.Tasks;
 
 namespace STVMatrimony.Services

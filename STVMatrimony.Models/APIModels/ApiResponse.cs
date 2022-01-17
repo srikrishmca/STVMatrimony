@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace STVMatrimonyModels
+namespace STVMatrimony.APIModels
 {
     public class ApiResponse<T>
     {

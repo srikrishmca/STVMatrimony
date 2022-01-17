@@ -1,4 +1,5 @@
 ﻿using STVMatrimony.ViewModels;
+using STVMatrimony.BootStrap;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -9,7 +10,7 @@ namespace STVMatrimony.Views
         public ItemDetailPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = AppContainer.Resolve<ItemDetailViewModel>();
         }
     }
 }

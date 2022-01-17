@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\STVMatrimonyModels\STVMatrimonyModels.csproj" />
+    <ProjectReference Include="..\STVMatrimony.Models\STVMatrimony.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimony.Services", "ST
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimonyWeb", "STVMatrimonyWeb\STVMatrimonyWeb.csproj", "{CA743016-9F34-4EF7-ABBD-CC10E5D9C9C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimonyModels", "STVMatrimonyModels\STVMatrimonyModels.csproj", "{1AF2B97F-0004-489D-A6A6-FC873637E492}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STVMatrimony.Models", "STVMatrimony.Models\STVMatrimony.Models.csproj", "{1AF2B97F-0004-489D-A6A6-FC873637E492}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

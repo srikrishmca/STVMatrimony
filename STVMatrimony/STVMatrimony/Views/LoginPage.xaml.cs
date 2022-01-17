@@ -15,7 +15,7 @@ namespace STVMatrimony.Views
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
+            this.BindingContext = BootStrap.AppContainer.Resolve<LoginViewModel>();
         }
     }
 }

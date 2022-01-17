@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using STVMatrimony.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace STVMatrimony.Views
 {
@@ -10,6 +8,7 @@ namespace STVMatrimony.Views
         public AboutPage()
         {
             InitializeComponent();
+            BindingContext = BootStrap.AppContainer.Resolve<AboutViewModel>();
         }
     }
 }

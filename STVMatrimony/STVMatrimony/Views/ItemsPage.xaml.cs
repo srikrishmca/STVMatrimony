@@ -1,4 +1,5 @@
-﻿using STVMatrimony.Models;
+﻿using STVMatrimony.BootStrap;
+using STVMatrimony.Models;
 using STVMatrimony.ViewModels;
 using STVMatrimony.Views;
 using System;
@@ -19,8 +20,8 @@ namespace STVMatrimony.Views
         public ItemsPage()
         {
             InitializeComponent();
-
-            BindingContext = _viewModel = new ItemsViewModel();
+            _viewModel = AppContainer.Resolve<ItemsViewModel>();
+            BindingContext = _viewModel;
         }
 
         protected override void OnAppearing()
