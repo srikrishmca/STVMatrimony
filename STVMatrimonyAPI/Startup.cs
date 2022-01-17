@@ -11,7 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using STVMatrimonyAPI.Interfaces;
+using STVMatrimonyAPI.Repository;
 namespace STVMatrimonyAPI
 {
     public class Startup
@@ -29,8 +30,10 @@ namespace STVMatrimonyAPI
             // DB Context
             var cnnStr = Configuration.GetConnectionString("STVDatawarehouseConstr");
             services.AddDbContext<DatawarehouseContext>(item => item.UseSqlServer(cnnStr));
-            services.AddControllers();
+            // Register Repository
+            services.AddScoped<IAdminRepository, AdminRepository>();
 
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
