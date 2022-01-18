@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace STVMatrimonyAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -23,7 +24,7 @@ namespace STVMatrimonyAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

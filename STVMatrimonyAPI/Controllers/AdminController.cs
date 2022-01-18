@@ -20,12 +20,15 @@ namespace STVMatrimonyAPI.Controllers
         {
             _adminRepository = adminRepository;
         }
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> InsertUpdateAdmin(Admin request)
         {
             return Ok(await _adminRepository.InsertUpdateAdmin(request));
         }
-        [HttpPost]
+
+
+        [HttpPost("[action]")]
+
         public async Task<IActionResult> AuthenticateUserDetails(AuthenticateUserDetailsRequest request)
         {
             return Ok(await _adminRepository.AuthenticateUserDetails(request));

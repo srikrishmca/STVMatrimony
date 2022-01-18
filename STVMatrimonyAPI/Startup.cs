@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using STVMatrimonyAPI.Interfaces;
 using STVMatrimonyAPI.Repository;
+using Microsoft.OpenApi.Models;
+
 namespace STVMatrimonyAPI
 {
     public class Startup
@@ -28,10 +30,17 @@ namespace STVMatrimonyAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // DB Context
-            var cnnStr = Configuration.GetConnectionString("STVDatawarehouseConstr");
+            string cnnStr = Configuration.GetConnectionString("STVDatawarehouseConstr");
+
             services.AddDbContext<DatawarehouseContext>(item => item.UseSqlServer(cnnStr));
             // Register Repository
             services.AddScoped<IAdminRepository, AdminRepository>();
+            // Register the Swagger generator, defining 1 or more Swagger documents
+           
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "STVMatrimony API", Version = "v1" });
+            });
 
             services.AddControllers();
         }
@@ -43,6 +52,19 @@ namespace STVMatrimonyAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "STVMatrimony API V1");
+                c.RoutePrefix = string.Empty;
+            });
+
 
             app.UseRouting();
 
