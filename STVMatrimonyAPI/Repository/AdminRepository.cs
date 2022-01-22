@@ -6,7 +6,7 @@ using STVMatrimony.Models;
 using STVMatrimonyAPI.Interfaces;
 using STVMatrimony.Models.APIRequest;
 using Microsoft.EntityFrameworkCore;
-
+using STVMatrimony.Utility;
 namespace STVMatrimonyAPI.Repository
 {
     public class AdminRepository : IAdminRepository
@@ -22,15 +22,15 @@ namespace STVMatrimonyAPI.Repository
             {
                 if (request.Id > 0)
                 {
-                    _dbContext.Admin.Update(request);
-                    await _dbContext.SaveChangesAsync();
-                    return request.Id;
+                    _ = _dbContext.Admin.Update(request);
+                    int result = await _dbContext.SaveChangesAsync();
+                    return (result == 1) ? request.Id : 0;
                 }
                 else
                 {
-                    _dbContext.Admin.Add(request);
-                    await _dbContext.SaveChangesAsync();
-                    return request.Id;
+                    _ = _dbContext.Admin.Add(request);
+                    int result = await _dbContext.SaveChangesAsync();
+                    return (result == 1) ? request.Id : 0;
                 }
             }
             catch (Exception ex)
@@ -41,16 +41,9 @@ namespace STVMatrimonyAPI.Repository
 
         public async Task<string>AuthenticateUserDetails(AuthenticateUserDetailsRequest request)
         {
-            Admin user = await _dbContext.Admin.AsNoTracking()
-                .Where(i => i.Username.Equals(request.UserName) && i.Password.Equals(request.Password)).FirstOrDefaultAsync();
-            if (user != null)
-            {
-                return "Success";
-            }
-            else
-            {
-                return "Invalid username or password";
-            }
+            IQueryable<Admin> query = _dbContext.Admin.AsNoTracking().Where(i => i.Username.Equals(request.UserName) && i.Password.Equals(request.Password));
+            Admin user = await query.FirstOrDefaultAsync();
+            return user != null ? "Success" : "Invalid username or password";
         }
     }
 }

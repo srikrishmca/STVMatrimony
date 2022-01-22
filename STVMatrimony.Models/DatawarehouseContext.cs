@@ -25,7 +25,7 @@ namespace STVMatrimony.Models
         public virtual DbSet<Photos> Photos { get; set; }
         public virtual DbSet<Preferences> Preferences { get; set; }
 
-        
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,18 +33,14 @@ namespace STVMatrimony.Models
 
             modelBuilder.Entity<Admin>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("admin");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Email)
                     .HasColumnName("email")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Password)
                     .HasColumnName("password")

@@ -31,12 +31,14 @@ namespace STVMatrimonyAPI
         {
             // DB Context
             string cnnStr = Configuration.GetConnectionString("STVDatawarehouseConstr");
-
             services.AddDbContext<DatawarehouseContext>(item => item.UseSqlServer(cnnStr));
+
+            // Get the API Configuration
+            services.AddOptions<Model.APIConfiguration>().Bind(Configuration.GetSection("APIConfiguration"));
+
             // Register Repository
             services.AddScoped<IAdminRepository, AdminRepository>();
             // Register the Swagger generator, defining 1 or more Swagger documents
-           
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "STVMatrimony API", Version = "v1" });

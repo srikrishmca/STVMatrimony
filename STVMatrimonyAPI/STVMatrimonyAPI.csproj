@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\STVMatrimony.Models\STVMatrimony.Models.csproj" />
+    <ProjectReference Include="..\STVMatrimony.Utility\STVMatrimony.Utility.csproj" />
   </ItemGroup>
 
 
