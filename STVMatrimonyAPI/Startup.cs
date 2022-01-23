@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using STVMatrimonyAPI.Interfaces;
 using STVMatrimonyAPI.Repository;
 using Microsoft.OpenApi.Models;
+using AutoWrapper;
 
 namespace STVMatrimonyAPI
 {
@@ -37,7 +38,7 @@ namespace STVMatrimonyAPI
             services.AddOptions<Model.APIConfiguration>().Bind(Configuration.GetSection("APIConfiguration"));
 
             // Register Repository
-            services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IAdminUserRepository, AdminUserRepository>();
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -66,8 +67,8 @@ namespace STVMatrimonyAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "STVMatrimony API V1");
                 c.RoutePrefix = string.Empty;
             });
-
-
+            // Added AutoWrapper configuration 
+            app.UseApiResponseAndExceptionWrapper();
             app.UseRouting();
 
             app.UseAuthorization();

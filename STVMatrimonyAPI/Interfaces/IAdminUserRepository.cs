@@ -7,9 +7,11 @@ using STVMatrimony.Models.APIRequest;
 
 namespace STVMatrimonyAPI.Interfaces
 {
-    public interface IAdminRepository
+    public interface IAdminUserRepository
     {
-        Task<int> InsertUpdateAdmin(Admin request);
+        Task<int> InsertUpdateAdminUser(AdminUser request);
         Task<string> AuthenticateUserDetails(AuthenticateUserDetailsRequest request);
+        Task<AdminUser> GetUserAdmin(AuthenticateUserDetailsRequest request);
+        Task<IEnumerable<AdminUser>> GetAllAdminUsers();
     }
 }

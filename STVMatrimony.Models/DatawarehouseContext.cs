@@ -19,11 +19,12 @@ namespace STVMatrimony.Models
         {
         }
 
-        public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<AdminUser> AdminUser { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Customeractivation> Customeractivation { get; set; }
         public virtual DbSet<Photos> Photos { get; set; }
         public virtual DbSet<Preferences> Preferences { get; set; }
+        public virtual DbSet<VwAdminUser> VwAdminUser { get; set; }
 
        
 
@@ -31,9 +32,11 @@ namespace STVMatrimony.Models
         {
             modelBuilder.HasAnnotation("Relational:DefaultSchema", "Maadhu");
 
-            modelBuilder.Entity<Admin>(entity =>
+            modelBuilder.Entity<AdminUser>(entity =>
             {
-                entity.ToTable("admin");
+                entity.HasIndex(e => e.Username)
+                    .HasName("UQ__AdminUse__F3DBC572B397C7A1")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -43,8 +46,9 @@ namespace STVMatrimony.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Password)
+                    .IsRequired()
                     .HasColumnName("password")
-                    .HasMaxLength(100)
+                    .HasMaxLength(300)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Username)
@@ -224,6 +228,24 @@ namespace STVMatrimony.Models
 
                 entity.Property(e => e.Weight)
                     .HasColumnName("weight")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VwAdminUser>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VwAdminUser");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Username)
+                    .HasColumnName("username")
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });

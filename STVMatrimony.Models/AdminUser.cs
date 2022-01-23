@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace STVMatrimony.Models
 {
-    public partial class Admin
+    public partial class AdminUser
     {
         public int Id { get; set; }
         public string Username { get; set; }
