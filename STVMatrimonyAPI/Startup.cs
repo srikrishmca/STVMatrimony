@@ -68,7 +68,7 @@ namespace STVMatrimonyAPI
                 c.RoutePrefix = string.Empty;
             });
             // Added AutoWrapper configuration 
-            app.UseApiResponseAndExceptionWrapper();
+            app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions { ShowApiVersion = true,ShowStatusCode=true, ApiVersion = "2.0" });
             app.UseRouting();
 
             app.UseAuthorization();
