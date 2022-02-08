@@ -2,19 +2,73 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              mc:Ignorable="d"
              x:Class="STVMatrimony.Views.LoginPage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <Grid RowDefinitions="*">
             <ScrollView VerticalScrollBarVisibility="Never">
-                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="*" Padding="20">
-                   
-                    <StackLayout Grid.Row="2" Grid.Column="0" Padding="10,0,10,0" VerticalOptions="Center">
-                        <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-                    </StackLayout>
-                </Grid>
+                <StackLayout Margin="20" Spacing="5">
+                   <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                   <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
+                     <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}"
+                    Style="{StaticResource Base_Entry}">
+                                <Entry.Behaviors>
+                                    <xct:UserStoppedTypingBehavior
+							Command="{Binding ValidateCommand}" CommandParameter="email"
+                            StoppedTypingTimeThreshold="50"    ShouldDismissKeyboardAutomatically="False"/>
+                                </Entry.Behaviors>
+                                <Entry.Triggers>
+                                    <DataTrigger TargetType="Entry" Binding="{Binding Email.IsValid}" Value="False">
+                                        <Setter TargetName="EmailFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                        <Setter TargetName="LoginButton" Property="Button.IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Entry.Triggers>
+                                <Entry.Effects>
+                                    <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                                </Entry.Effects>
+                            </Entry>
+                        </Frame>
+                    <Label Text="Password" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                    <Frame
+                x:Name="PasswordFrame"
+                Style="{StaticResource Base_FrameEntry}">
+                        <Entry
+                    IsPassword="True"
+                    Placeholder="Enter your password"
+                    ReturnCommand="{Binding LoginCommand}"
+                    Text="{Binding Password.Value}"
+                    Style="{StaticResource Base_Entry}">
+                            <Entry.Behaviors>
+                                <xct:UserStoppedTypingBehavior
+							Command="{Binding ValidateCommand}"
+							CommandParameter="password"
+                            StoppedTypingTimeThreshold="50"
+                            ShouldDismissKeyboardAutomatically="False"/>
+                            </Entry.Behaviors>
+                            <Entry.Triggers>
+                                <DataTrigger 
+							TargetType="Entry"
+							Binding="{Binding Password.IsValid}"
+							Value="False">
+                                    <Setter TargetName="PasswordFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                    <Setter TargetName="LoginButton" Property="Button.IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Entry.Triggers>
+                            <Entry.Effects>
+                                <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                            </Entry.Effects>
+                        </Entry>
+                    </Frame>
+                    <Button
+            x:Name="LoginButton" IsEnabled="False"
+            Command="{Binding LoginCommand}"
+            Margin="20, 0, 20, 10"
+            Text="Login"
+            Style="{StaticResource Base_Button}"></Button>
+                </StackLayout>
+               
             </ScrollView>
             <!-- Here add the code that is being explained in this block number five (5)-->
         </Grid>

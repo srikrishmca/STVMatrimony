@@ -29,8 +29,8 @@
                             </ff:CachedImage.Transformations>
                         </ff:CachedImage>
                         <Grid Padding="10" Grid.Column="1" Grid.Row="0" RowDefinitions="*,*">
-                            <Label Text="{Binding Text}" Grid.Row="0" class="ListItemLabelStyle"   />
-                            <Label Text="{Binding Description}"  Grid.Row="1" class="ListItemLabelStyle"   />
+                            <Label Text="{Binding Text}" Grid.Row="0" class="Headline4_MulishBold"   />
+                            <Label Text="{Binding Description}"  Grid.Row="1" class="Headline4_MulishRegular"   />
                         </Grid>
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer 
