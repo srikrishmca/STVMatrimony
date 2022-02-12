@@ -3,7 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:STVMatrimony.Views"
        Title="STVMatrimony"
-       x:Class="STVMatrimony.AppShell">
+       x:Class="STVMatrimony.AppShell" >
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -76,7 +76,7 @@
 
     <Shell.FlyoutHeader>
         <Grid RowDefinitions="*" BackgroundColor="{StaticResource PrimaryColor}">
-            <Image Source="TopIcon.jpg" HorizontalOptions="Center"/>
+            <Image Source="TopIcon.png" HorizontalOptions="Center"/>
         </Grid>
     </Shell.FlyoutHeader>
    
