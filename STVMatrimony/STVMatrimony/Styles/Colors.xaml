@@ -2,19 +2,19 @@
 <ResourceDictionary  xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="STVMatrimony.Styles.Colors">
-    <Color x:Key="PrimaryColor">#cd3164</Color>
+    <Color x:Key="PrimaryColor">#AE3094</Color>
     <Color x:Key="AccentColor">#AA3333</Color>
 
     <Color x:Key="FailColor">#D04C41</Color>
     <Color x:Key="SuccessColor">#00AF49</Color>
 
     <!--App Theme Light-->
-    <Color x:Key="LightPrimaryTextColor">#cd3164</Color>
+    <Color x:Key="LightPrimaryTextColor">#AE3094</Color>
     <Color x:Key="LightSecondaryTextColor">#757575</Color>
     <Color x:Key="LightDisabledTextColor">#BDBDBD</Color>
     <Color x:Key="LightPlaceholderTextColor">#BDBDBD</Color>
 
-    <Color x:Key="LightButtonColor">#cd3164</Color>
+    <Color x:Key="LightButtonColor">#AE3094</Color>
     <Color x:Key="LightButtonTextColor">#FFFFFF</Color>
 
     <Color x:Key="LightEntryBackgroundColor">#FAFAFA</Color>

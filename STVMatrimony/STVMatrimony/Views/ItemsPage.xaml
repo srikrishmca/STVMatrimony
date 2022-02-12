@@ -12,36 +12,39 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
-    <!--
+    <StackLayout  BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
+        <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
-    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="ItemsListView"
+        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10" x:DataType="model:Item" ColumnDefinitions="Auto,*" RowDefinitions="75" >
-                        <ff:CachedImage Source="{Binding ImageURL}" Grid.Column="0" Grid.Row="0"   HeightRequest="75" WidthRequest="75"> 
-                            <ff:CachedImage.Transformations>
-                                <ffTransformations:CircleTransformation />
-                            </ff:CachedImage.Transformations>
-                        </ff:CachedImage>
-                        <Grid Padding="10" Grid.Column="1" Grid.Row="0" RowDefinitions="*,*">
-                            <Label Text="{Binding Text}" Grid.Row="0" class="Headline4_MulishBold"   />
-                            <Label Text="{Binding Description}"  Grid.Row="1" class="Headline4_MulishRegular"   />
-                        </Grid>
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer 
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" x:DataType="model:Item" ColumnDefinitions="Auto,*" RowDefinitions="75" >
+                            <ff:CachedImage Source="{Binding ImageURL}" Grid.Column="0" Grid.Row="0"   HeightRequest="75" WidthRequest="75">
+                                <ff:CachedImage.Transformations>
+                                    <ffTransformations:CircleTransformation />
+                                </ff:CachedImage.Transformations>
+                            </ff:CachedImage>
+                            <Grid Padding="10" Grid.Column="1" Grid.Row="0" RowDefinitions="*,*">
+                                <Label Text="{Binding Text}" Grid.Row="0" class="Headline4_MulishBold"   />
+                                <Label Text="{Binding Description}"  Grid.Row="1" class="Headline4_MulishRegular"   />
+                            </Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
                                 CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </Grid.GestureRecognizers>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </RefreshView>
+                                </TapGestureRecognizer>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+    </StackLayout>
 </ContentPage>

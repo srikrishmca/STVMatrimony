@@ -7,10 +7,11 @@
              x:Class="STVMatrimony.Views.LoginPage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <Grid RowDefinitions="*">
+        <Grid RowDefinitions="*" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
             <ScrollView VerticalScrollBarVisibility="Never">
-                <StackLayout Margin="20" Spacing="5">
-                   <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                <StackLayout Margin="20" Spacing="5" >
+
+                    <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                    <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
                      <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}"
                     Style="{StaticResource Base_Entry}">
