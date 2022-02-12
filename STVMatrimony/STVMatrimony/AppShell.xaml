@@ -74,7 +74,11 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-   
+    <Shell.FlyoutHeader>
+        <Grid RowDefinitions="*" BackgroundColor="{StaticResource PrimaryColor}">
+            <Image Source="TopIcon.jpg" HorizontalOptions="Center"/>
+        </Grid>
+    </Shell.FlyoutHeader>
    
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
