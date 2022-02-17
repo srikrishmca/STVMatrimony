@@ -39,6 +39,8 @@ namespace STVMatrimonyAPI
 
             // Register Repository
             services.AddScoped<IAdminUserRepository, AdminUserRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerInfoRepository, CustomerInfoRepository>();
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {

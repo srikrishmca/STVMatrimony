@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace STVMatrimonyAPI.Repository
 {
-    public class CustomerInfoRepository
+    public class CustomerInfoRepository : ICustomerInfoRepository
     {
         DatawarehouseContext _dbContext;
         public CustomerInfoRepository(DatawarehouseContext dbContext)
