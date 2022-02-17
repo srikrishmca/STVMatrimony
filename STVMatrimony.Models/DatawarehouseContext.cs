@@ -26,7 +26,12 @@ namespace STVMatrimony.Models
         public virtual DbSet<Preferences> Preferences { get; set; }
         public virtual DbSet<VwAdminUser> VwAdminUser { get; set; }
 
-       
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -152,11 +157,11 @@ namespace STVMatrimony.Models
 
             modelBuilder.Entity<Photos>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("photos");
 
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CustomerId).HasColumnName("customerId");
 
                 entity.Property(e => e.Navamsam)
                     .HasColumnName("navamsam")
@@ -191,9 +196,9 @@ namespace STVMatrimony.Models
 
             modelBuilder.Entity<Preferences>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("preferences");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Agemax).HasColumnName("agemax");
 
@@ -204,6 +209,8 @@ namespace STVMatrimony.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.CustomerId).HasColumnName("customerId");
+
                 entity.Property(e => e.Diet)
                     .HasColumnName("diet")
                     .HasMaxLength(50)
@@ -213,8 +220,6 @@ namespace STVMatrimony.Models
                     .HasColumnName("height")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Maritialstatus)
                     .HasColumnName("maritialstatus")

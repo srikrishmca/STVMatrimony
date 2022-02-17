@@ -16,12 +16,12 @@ namespace STVMatrimonyAPI.Controllers
     [ApiController]
     public class AdminUserController : ControllerBase
     {
-        public IAdminUserRepository _adminRepository;
+        public IAdminUserRepository _Repository;
         private readonly IOptions<Model.APIConfiguration> _apiConfiguration;
        
         public AdminUserController(IAdminUserRepository adminRepository,IOptions<Model.APIConfiguration> apiConfig)
         {
-            _adminRepository = adminRepository;
+            _Repository = adminRepository;
             _apiConfiguration = apiConfig;
 
         }
@@ -33,7 +33,7 @@ namespace STVMatrimonyAPI.Controllers
             {
                 request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
             }
-            return Ok(await _adminRepository.InsertUpdateAdminUser(request));
+            return Ok(await _Repository.InsertUpdateAdminUser(request));
         }
 
 
@@ -43,14 +43,14 @@ namespace STVMatrimonyAPI.Controllers
         {
             if (!string.IsNullOrEmpty(request.UserName))
             {
-                var user = await _adminRepository.GetUserAdmin(request);
+                var user = await _Repository.GetUserAdmin(request);
                 if (user != null)
                 {
                     if (!string.IsNullOrWhiteSpace(request.Password))
                     {
                         request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
                     }
-                    return Ok(await _adminRepository.AuthenticateUserDetails(request));
+                    return Ok(await _Repository.AuthenticateUserDetails(request));
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace STVMatrimonyAPI.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAllAdminUsers()
         {
-            return Ok(await _adminRepository.GetAllAdminUsers());
+            return Ok(await _Repository.GetAllAdminUsers());
         }
     }
 }

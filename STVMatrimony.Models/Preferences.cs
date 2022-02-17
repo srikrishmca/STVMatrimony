@@ -18,5 +18,6 @@ namespace STVMatrimony.Models
         public string Weight { get; set; }
         public string Maritialstatus { get; set; }
         public string Complexion { get; set; }
+        public int CustomerId { get; set; }
     }
 }

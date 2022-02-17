@@ -23,5 +23,6 @@ namespace STVMatrimony.Models
         public string Assets { get; set; }
         public string Expectations { get; set; }
         public string Star { get; set; }
+        public bool? IsActive { get; set; }
     }
 }
