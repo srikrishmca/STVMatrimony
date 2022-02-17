@@ -23,6 +23,10 @@ namespace STVMatrimonyAPI.Controllers
         {
             return Ok(await _Repository.InsertUpdateCustomer(request));
         }
-
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllCustomerBasicInfo()
+        {
+            return Ok(await _Repository.GetAllCustomerBasicInfo());
+        }
     }
 }

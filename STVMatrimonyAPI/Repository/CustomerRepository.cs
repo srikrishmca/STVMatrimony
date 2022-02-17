@@ -40,7 +40,11 @@ namespace STVMatrimonyAPI.Repository
                 throw new Exception(ex.Message);
             }
         }
-
+        // To do add new method to get customerbasic info with paging
+        public async Task<IEnumerable<VwCustomerBasicInfo>> GetAllCustomerBasicInfo()
+        {
+            return await _dbContext.VwCustomerBasicInfo.AsNoTracking().ToListAsync();
+        }
 
     }
 }

@@ -16,6 +16,7 @@ namespace STVMatrimonyAPI.Repository
         {
             _dbContext = dbContext;
         }
+
         public async Task<int> InsertUpdateCustomerPhotos(Photos request)
         {
             try
@@ -39,6 +40,12 @@ namespace STVMatrimonyAPI.Repository
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<Photos> GetCustomerPhotosByCustomerId(int CustomerId)
+        {
+            var query = _dbContext.Photos.AsNoTracking().Where(i => i.CustomerId == CustomerId);
+            return (query != null) ? await query.FirstOrDefaultAsync() : new Photos();
         }
 
         public async Task<int> InsertUpdateCustomerPreference(Preferences request)
@@ -65,5 +72,12 @@ namespace STVMatrimonyAPI.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<Preferences> GetCustomerPreferenceByCustomerId(int CustomerId)
+        {
+            var query = _dbContext.Preferences.AsNoTracking().Where(i => i.CustomerId == CustomerId);
+            return (query != null) ? await query.FirstOrDefaultAsync() : new Preferences();
+        }
+
     }
 }

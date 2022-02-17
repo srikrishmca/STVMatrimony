@@ -25,11 +25,14 @@ namespace STVMatrimony.Models
         public virtual DbSet<Photos> Photos { get; set; }
         public virtual DbSet<Preferences> Preferences { get; set; }
         public virtual DbSet<VwAdminUser> VwAdminUser { get; set; }
+        public virtual DbSet<VwCustomerBasicInfo> VwCustomerBasicInfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=103.102.234.23;Database=mk_matrimonydb;User Id=Maadhu;Password=Welcome@123;");
             }
         }
 
@@ -64,9 +67,9 @@ namespace STVMatrimony.Models
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("customer");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Aboutme)
                     .HasColumnName("aboutme")
@@ -103,10 +106,6 @@ namespace STVMatrimony.Models
                     .HasColumnName("expectations")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Income)
                     .HasColumnName("income")
@@ -251,6 +250,42 @@ namespace STVMatrimony.Models
 
                 entity.Property(e => e.Username)
                     .HasColumnName("username")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VwCustomerBasicInfo>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VwCustomerBasicInfo");
+
+                entity.Property(e => e.Age).HasColumnName("age");
+
+                entity.Property(e => e.Education)
+                    .HasColumnName("education")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic1)
+                    .HasColumnName("pic1")
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic2)
+                    .HasColumnName("pic2")
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Sex)
+                    .HasColumnName("sex")
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
