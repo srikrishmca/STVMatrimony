@@ -1,9 +1,11 @@
 ﻿using STVMatrimony.Models;
 using STVMatrimony.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace STVMatrimony.ViewModels
@@ -28,7 +30,7 @@ namespace STVMatrimony.ViewModels
             AddItemCommand = new Command(OnAddItem);
         }
 
-        async Task ExecuteLoadItemsCommand()
+        async Task ExecuteLoadLocalItemsCommand()
         {
             IsBusy = true;
 
@@ -50,7 +52,32 @@ namespace STVMatrimony.ViewModels
                 IsBusy = false;
             }
         }
+        async Task ExecuteLoadItemsCommand()
+        {
+            IsBusy = true;
 
+            try
+            {
+                Items.Clear();
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+
+                    var items = await DataStore.GetItemsAsync(true);
+                    foreach (var item in items)
+                    {
+                        Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
         public void OnAppearing()
         {
             IsBusy = true;

@@ -26,7 +26,7 @@ namespace STVMatrimony.Services
                     var responseResult = JsonConvert.DeserializeObject<T>(result);
                     ApiResponse<T> res = new ApiResponse<T>
                     {
-                        IsError = false,
+                        StatusCode = (int)response.StatusCode,
                         Message = "Success",
                         Version = null,
                         Result = responseResult
@@ -38,7 +38,7 @@ namespace STVMatrimony.Services
                 {
                     ApiResponse<T> res = new ApiResponse<T>
                     {
-                        IsError = true,
+                        StatusCode=401,
                         Message = "Some thing went wrong",
                         Version = null
                     };
