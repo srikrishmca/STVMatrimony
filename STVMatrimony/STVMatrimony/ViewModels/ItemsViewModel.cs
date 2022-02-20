@@ -1,4 +1,7 @@
-﻿using STVMatrimony.Models;
+﻿using STVMatrimony.APIModels;
+using STVMatrimony.Services.DBModels;
+using STVMatrimony.Models;
+using STVMatrimony.Services;
 using STVMatrimony.Views;
 using System;
 using System.Collections.Generic;
@@ -23,7 +26,7 @@ namespace STVMatrimony.ViewModels
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new Command(async () => await ExecuteLoadLocalItemsCommand());
 
             ItemTapped = new Command<Item>(OnItemSelected);
 
@@ -61,12 +64,11 @@ namespace STVMatrimony.ViewModels
                 Items.Clear();
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
-
-                    var items = await DataStore.GetItemsAsync(true);
-                    foreach (var item in items)
+                    ApiResponse<List<VwCustomerBasicInfo>> result = await CommonService.Instance.GetResponseAsync<List<VwCustomerBasicInfo>>("Customer​/GetAllCustomerBasicInfo");
+                    if (result.Result != null)
                     {
-                        Items.Add(item);
                     }
+
                 }
             }
             catch (Exception ex)

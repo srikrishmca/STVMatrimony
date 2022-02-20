@@ -11,7 +11,14 @@ namespace STVMatrimony.Services
 {
     public class CommonService : ICommonService
     {
-      
+        private static readonly CommonService instance = new CommonService();
+        public static CommonService Instance
+        {
+            get => instance;
+        }
+        static CommonService()
+        {
+        }
         public async Task<ApiResponse<T>> GetResponseAsync<T>(string url)
         {
             try
