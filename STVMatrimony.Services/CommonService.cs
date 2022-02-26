@@ -23,22 +23,17 @@ namespace STVMatrimony.Services
         {
             try
             {
-                Uri uri = new Uri(string.Format(ServiceConstants.ApiBaseURL + url));
-                HttpClient _client = ServiceConfig.GetHttpClient(uri);
-                HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, uri);
+                UriBuilder uriBuilder = new UriBuilder(string.Format(ServiceConstants.ApiBaseURL + url));
+                //Uri uri = new Uri();
+                HttpClient _client = ServiceConfig.GetHttpClient(uriBuilder.Uri);
+                HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, uriBuilder.Uri);
                 HttpResponseMessage response = _client.SendAsync(message).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     string result = await response.Content.ReadAsStringAsync();
-                    var responseResult = JsonConvert.DeserializeObject<T>(result);
-                    ApiResponse<T> res = new ApiResponse<T>
-                    {
-                        StatusCode = (int)response.StatusCode,
-                        Message = "Success",
-                        Version = null,
-                        Result = responseResult
-                    };
-                    return res;
+                    var responseResult = JsonConvert.DeserializeObject<ApiResponse<T>>(result);
+                    
+                    return responseResult;
                 }
 
                 else

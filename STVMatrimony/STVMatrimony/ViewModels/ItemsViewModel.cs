@@ -64,7 +64,8 @@ namespace STVMatrimony.ViewModels
                 Items.Clear();
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
-                    ApiResponse<List<VwCustomerBasicInfo>> result = await CommonService.Instance.GetResponseAsync<List<VwCustomerBasicInfo>>("Customer​/GetAllCustomerBasicInfo");
+                    ApiResponse<List<VwCustomerBasicInfo>> result = await CommonService.Instance.GetResponseAsync<List<VwCustomerBasicInfo>>(ServiceConstants.GetAllCustomerBasicInfo);
+                
                     if (result.Result != null)
                     {
                     }
