@@ -7,7 +7,8 @@
              xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
              x:Class="STVMatrimony.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled">
     <ContentPage.Content>
         <Grid RowDefinitions="*" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
             <ScrollView VerticalScrollBarVisibility="Never">

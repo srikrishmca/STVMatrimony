@@ -1,5 +1,4 @@
 ﻿using STVMatrimony.APIModels;
-using STVMatrimony.Services.DBModels;
 using STVMatrimony.Models;
 using STVMatrimony.Services;
 using STVMatrimony.Views;
@@ -15,20 +14,20 @@ namespace STVMatrimony.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private VwCustomerBasicInfo _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<VwCustomerBasicInfo> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<VwCustomerBasicInfo> ItemTapped { get; }
 
         public ItemsViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Title = "MATRIMONY";
+            Items = new ObservableCollection<VwCustomerBasicInfo>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadLocalItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<VwCustomerBasicInfo>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -55,39 +54,39 @@ namespace STVMatrimony.ViewModels
                 IsBusy = false;
             }
         }
-        async Task ExecuteLoadItemsCommand()
-        {
-            IsBusy = true;
+        //async Task ExecuteLoadItemsCommand()
+        //{
+        //    IsBusy = true;
 
-            try
-            {
-                Items.Clear();
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-                {
-                    ApiResponse<List<VwCustomerBasicInfo>> result = await CommonService.Instance.GetResponseAsync<List<VwCustomerBasicInfo>>(ServiceConstants.GetAllCustomerBasicInfo);
+        //    try
+        //    {
+        //        Items.Clear();
+        //        if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+        //        {
+        //            ApiResponse<List<VwCustomerBasicInfo>> result = await CommonService.Instance.GetResponseAsync<List<VwCustomerBasicInfo>>(ServiceConstants.GetAllCustomerBasicInfo);
                 
-                    if (result.Result != null)
-                    {
-                    }
+        //            if (result.Result != null)
+        //            {
+        //            }
 
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex);
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
         public void OnAppearing()
         {
             IsBusy = true;
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public VwCustomerBasicInfo SelectedItem
         {
             get => _selectedItem;
             set
@@ -102,13 +101,13 @@ namespace STVMatrimony.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(VwCustomerBasicInfo item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.Id)}={item.Id}");
         }
     }
 }

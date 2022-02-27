@@ -10,7 +10,7 @@ namespace STVMatrimony.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public VwCustomerBasicInfo Item { get; set; }
 
         public NewItemPage()
         {

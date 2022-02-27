@@ -6,54 +6,36 @@ using Xamarin.Forms;
 
 namespace STVMatrimony.ViewModels
 {
-    [QueryProperty(nameof(ItemId), nameof(ItemId))]
+    [QueryProperty(nameof(Id), nameof(Id))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        private string itemId;
-        private string text;
-        private string description;
-        private string imageURL;
-        public string Id { get; set; }
-
-        public string Text
+        private VwCustomerBasicInfo _SelectedCustomer;
+       
+        public VwCustomerBasicInfo SelectedCustomer
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => _SelectedCustomer;
+            set => SetProperty(ref _SelectedCustomer, value);
         }
-
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
-        public string ImageURL
-        {
-            get => imageURL;
-            set => SetProperty(ref imageURL, value);
-        }
-
-        public string ItemId
+        private int _Id;
+        public int Id
         {
             get
             {
-                return itemId;
+                return _Id; ;
             }
             set
             {
-                itemId = value;
-                LoadItemId(value);
+                _Id = value;
+                LoadItemId(Id);
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public async void LoadItemId(int itemId)
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
-                ImageURL = item.ImageURL;
+                VwCustomerBasicInfo item = await DataStore.GetItemAsync(itemId);
+                SelectedCustomer = item;
             }
             catch (Exception)
             {

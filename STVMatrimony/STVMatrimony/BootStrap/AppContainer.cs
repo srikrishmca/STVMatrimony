@@ -10,18 +10,18 @@ namespace STVMatrimony.BootStrap
 
         public static void RegisterDependencies()
         {
-            ContainerBuilder builder = new ContainerBuilder();
+            ContainerBuilder _builder = new ContainerBuilder();
 
             //ViewModels
-            builder.RegisterType<AboutViewModel>();
-            builder.RegisterType<ItemDetailViewModel>();
-            builder.RegisterType<ItemsViewModel>();
-            builder.RegisterType<LoginViewModel>();
+            _builder.RegisterType<AboutViewModel>();
+            _builder.RegisterType<ItemDetailViewModel>();
+            _builder.RegisterType<ItemsViewModel>();
+            _builder.RegisterType<LoginViewModel>();
 
             // MockDataSource
-            builder.RegisterType<Services.MockDataStore>();
+            _builder.RegisterType<Services.MockDataStore>();
 
-            _container = builder.Build();
+            _container = _builder.Build();
         }
 
         public static object Resolve(Type typeName)

@@ -8,7 +8,7 @@ namespace STVMatrimony
 {
     public partial class App : Application
     {
-        public static bool IsLogin = false;
+      
         public App()
         {
             InitializeComponent();

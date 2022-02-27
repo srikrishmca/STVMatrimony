@@ -10,7 +10,7 @@ namespace STVMatrimony.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<VwCustomerBasicInfo> DataStore => DependencyService.Get<IDataStore<VwCustomerBasicInfo>>();
 
         bool isBusy = false;
         public bool IsBusy

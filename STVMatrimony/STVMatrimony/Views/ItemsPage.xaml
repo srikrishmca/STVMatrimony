@@ -24,15 +24,16 @@
                 SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10" x:DataType="model:Item" ColumnDefinitions="Auto,*" RowDefinitions="75" >
-                            <ff:CachedImage Source="{Binding ImageURL}" Grid.Column="0" Grid.Row="0"   HeightRequest="75" WidthRequest="75">
+                        <Grid Padding="10" x:DataType="model:VwCustomerBasicInfo" ColumnDefinitions="Auto,*" RowDefinitions="100" >
+                            <ff:CachedImage Source="{Binding Pic1}" Grid.Column="0" Grid.Row="0"   HeightRequest="100" WidthRequest="100">
                                 <ff:CachedImage.Transformations>
                                     <ffTransformations:CircleTransformation />
                                 </ff:CachedImage.Transformations>
                             </ff:CachedImage>
-                            <Grid Padding="10" Grid.Column="1" Grid.Row="0" RowDefinitions="*,*">
-                                <Label Text="{Binding Text}" Grid.Row="0" class="Headline4_MulishBold"   />
-                                <Label Text="{Binding Description}"  Grid.Row="1" class="Headline4_MulishRegular"   />
+                            <Grid Padding="10" Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,*" RowDefinitions="*,*,*">
+                                <Label Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" class="Headline4_MulishBold"   />
+                                <Label Text="{Binding Age,StringFormat='{0:0 Yrs}'}" Grid.Row="1" Grid.Column="0" class="Headline4_MulishRegular"   />
+                                <Label Text="{Binding Education}"  Grid.Row="2" Grid.ColumnSpan="2"   class="Headline4_MulishRegular"   />
                             </Grid>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer 

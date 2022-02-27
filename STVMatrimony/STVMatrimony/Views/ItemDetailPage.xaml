@@ -18,18 +18,18 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Spacing="20" Padding="15" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
+    <StackLayout Spacing="20" Padding="15" 
+                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
 
-            <ff:CachedImage Source="{Binding ImageURL}" HeightRequest="100" WidthRequest="100" >
+        <ff:CachedImage Source="{Binding SelectedCustomer.Pic1}" HeightRequest="100" WidthRequest="100" >
             <ff:CachedImage.Transformations>
                 <ffTransformations:CircleTransformation />
             </ff:CachedImage.Transformations>
         </ff:CachedImage>
-        <Grid ColumnDefinitions="Auto,*" RowDefinitions="*,*">
-            <Label Text="Text:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LblContent}"/>
-            <Label Text="{Binding Text}" Grid.Column="1" Grid.Row="0" Style="{StaticResource LblDescription}"/>
-            <Label Text="Description:" Grid.Column="0" Grid.Row="1" Style="{StaticResource LblContent}"/>
-            <Label Text="{Binding Description}"  Grid.Column="1" Grid.Row="1" Style="{StaticResource LblDescription}"/>
+        <Grid ColumnDefinitions="*" RowDefinitions="*,*,*">
+            <Label Text="{Binding SelectedCustomer.Name}" Grid.Column="0" Grid.Row="0" Style="{StaticResource LblDescription}"/>
+            <Label Text="{Binding SelectedCustomer.Age,StringFormat='{0:0 Yrs}'}" Grid.Row="1" Grid.Column="0" class="Headline4_MulishRegular"   />
+            <Label Text="{Binding SelectedCustomer.Education}"  Grid.Column="0" Grid.Row="2" Style="{StaticResource LblDescription}"/>
         </Grid>
        
        

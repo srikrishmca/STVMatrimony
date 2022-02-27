@@ -2,11 +2,14 @@
 
 namespace STVMatrimony.Models
 {
-    public class Item
+    public class VwCustomerBasicInfo
     {
-        public string Id { get; set; }
-        public string Text { get; set; }
-        public string Description { get; set; }
-        public string ImageURL { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Sex { get; set; }
+        public int? Age { get; set; }
+        public string Education { get; set; }
+        public string Pic1 { get; set; }
+        public string Pic2 { get; set; }
     }
 }

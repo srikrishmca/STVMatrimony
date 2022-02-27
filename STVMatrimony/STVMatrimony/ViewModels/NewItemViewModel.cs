@@ -49,11 +49,10 @@ namespace STVMatrimony.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            VwCustomerBasicInfo newItem = new VwCustomerBasicInfo()
             {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
+                Id = 1,
+                Name = "Srinivasan",
             };
 
             await DataStore.AddItemAsync(newItem);
