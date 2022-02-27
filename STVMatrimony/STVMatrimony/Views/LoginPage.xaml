@@ -10,7 +10,11 @@
         <Grid RowDefinitions="*" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
             <ScrollView VerticalScrollBarVisibility="Never">
                 <StackLayout Margin="20" Spacing="5" >
-
+                    <Grid RowDefinitions="Auto,*" BackgroundColor="{StaticResource PrimaryColor}"  RowSpacing="5">
+                        <Label Text="Thuluva Vellalar Matrimony" HorizontalOptions="Center"
+                               FontSize="Title" TextColor="White" Grid.Row="0"/>
+                        <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="1"/>
+                    </Grid>
                     <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                    <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
                      <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}"

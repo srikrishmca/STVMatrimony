@@ -44,6 +44,7 @@ namespace STVMatrimony.ViewModels
         private async void LoginCommandHandler(object obj)
         {
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
+            App.IsLogin = true;
             await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
         }
         private void ValidateCommandHandler(string field)
