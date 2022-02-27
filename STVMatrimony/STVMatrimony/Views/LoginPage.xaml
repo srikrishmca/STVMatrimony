@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
              x:Class="STVMatrimony.Views.LoginPage"
              Shell.NavBarIsVisible="False">
@@ -10,11 +12,13 @@
         <Grid RowDefinitions="*" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
             <ScrollView VerticalScrollBarVisibility="Never">
                 <StackLayout Margin="20" Spacing="5" >
-                    <Grid RowDefinitions="Auto,*" BackgroundColor="{StaticResource PrimaryColor}"  RowSpacing="5">
-                        <Label Text="Thuluva Vellalar Matrimony" HorizontalOptions="Center"
+                    <PanCake:PancakeView CornerRadius="5" >
+                        <Grid RowDefinitions="Auto,*" BackgroundColor="{StaticResource PrimaryColor}"  RowSpacing="5">
+                            <Label Text="Thuluva Vellalar Matrimony" HorizontalOptions="Center"
                                FontSize="Title" TextColor="White" Grid.Row="0"/>
-                        <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="1"/>
-                    </Grid>
+                            <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="1"/>
+                        </Grid>
+                    </PanCake:PancakeView>
                     <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                    <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
                      <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}"
