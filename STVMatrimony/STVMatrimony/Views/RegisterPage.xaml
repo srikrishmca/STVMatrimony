@@ -6,40 +6,49 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
              xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
-             x:Class="STVMatrimony.Views.LoginPage"
-             Shell.NavBarIsVisible="False"
-             Shell.FlyoutBehavior="Disabled">
+            Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             x:Class="STVMatrimony.Views.RegisterPage">
     <ContentPage.Content>
         <Grid RowDefinitions="*" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
             <ScrollView VerticalScrollBarVisibility="Never">
                 <StackLayout Margin="20" Spacing="5" >
                     <PanCake:PancakeView CornerRadius="5" >
                         <Grid RowDefinitions="Auto,*" BackgroundColor="{StaticResource PrimaryColor}"  RowSpacing="5">
-                            <Label Text="Thuluva Vellalar Matrimony" HorizontalOptions="Center"
+                            <Label Text="Register Here" HorizontalOptions="Center"
                                FontSize="Title" TextColor="White" Grid.Row="0"/>
                             <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="1"/>
                         </Grid>
                     </PanCake:PancakeView>
+                    <Label Text="Name" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                    <Frame  x:Name="NameFrame" Style="{StaticResource Base_FrameEntry}">
+                        <Entry Placeholder="Enter your Name"  Text="{Binding Email.Value}"
+                            Style="{StaticResource Base_Entry}">
+                            <Entry.Effects>
+                                <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                            </Entry.Effects>
+                        </Entry>
+                    </Frame>
                     <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
-                   <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
-                     <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}"
+                    <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
+                        <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}"
                     Style="{StaticResource Base_Entry}">
-                                <Entry.Behaviors>
-                                    <xct:UserStoppedTypingBehavior
+                            <Entry.Behaviors>
+                                <xct:UserStoppedTypingBehavior
 							Command="{Binding ValidateCommand}" CommandParameter="email"
                             StoppedTypingTimeThreshold="50"    ShouldDismissKeyboardAutomatically="False"/>
-                                </Entry.Behaviors>
-                                <Entry.Triggers>
-                                    <DataTrigger TargetType="Entry" Binding="{Binding Email.IsValid}" Value="False">
-                                        <Setter TargetName="EmailFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
-                                        <Setter TargetName="LoginButton" Property="Button.IsEnabled" Value="False" />
-                                    </DataTrigger>
-                                </Entry.Triggers>
-                                <Entry.Effects>
-                                    <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
-                                </Entry.Effects>
-                            </Entry>
-                        </Frame>
+                            </Entry.Behaviors>
+                            <Entry.Triggers>
+                                <DataTrigger TargetType="Entry" Binding="{Binding Email.IsValid}" Value="False">
+                                    <Setter TargetName="EmailFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                    <Setter TargetName="LoginButton" Property="Button.IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Entry.Triggers>
+                            <Entry.Effects>
+                                <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                            </Entry.Effects>
+                        </Entry>
+                    </Frame>
                     <Label Text="Password" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                     <Frame
                 x:Name="PasswordFrame"
@@ -73,22 +82,22 @@
                     </Frame>
                     <Grid ColumnDefinitions="*,*">
                         <Button Grid.Column="0"
-            x:Name="LoginButton" IsEnabled="False"
-            Command="{Binding LoginCommand}"
-            Margin="10"  Text="Login"
+            x:Name="RegisterButton" IsEnabled="False"
+            Command="{Binding MyCommand}" CommandParameter="Register"
+               Margin="10"  Text="Register"
             Style="{StaticResource Base_Button}"/>
                         <Button Grid.Column="1"
-             IsEnabled="True"
-            Command="{Binding RegisterCommand}"
-            Margin="10"  Text="Register"
+            x:Name="CancelButton" IsEnabled="True"
+            Command="{Binding MyCommand}" CommandParameter="Cancel"
+              Margin="10" Text="Cancel"
             Style="{StaticResource Base_Button}"/>
                     </Grid>
-                   
+
                 </StackLayout>
-               
+
             </ScrollView>
             <!-- Here add the code that is being explained in this block number five (5)-->
         </Grid>
-       
+
     </ContentPage.Content>
 </ContentPage>

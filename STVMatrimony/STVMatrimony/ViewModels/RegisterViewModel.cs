@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace STVMatrimony.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class RegisterViewModel : BaseViewModel
     {
         #region Properties
 
@@ -19,8 +19,8 @@ namespace STVMatrimony.ViewModels
 
         #region Commands
 
-        public ICommand LoginCommand { get; set; }
-        public ICommand RegisterCommand { get; set; }
+        public ICommand MyCommand { get; set; }
+       
         public ICommand ValidateCommand { get; set; }
 
         #endregion
@@ -34,24 +34,26 @@ namespace STVMatrimony.ViewModels
             Email.Validations.Add(new IsEmailRule<string> { ValidationMessage = "Email format is not correct" });
             Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
         }
-        public LoginViewModel()
+        public RegisterViewModel()
         {
 
-            LoginCommand = new Command(LoginCommandHandler);
-            RegisterCommand = new Command(RegisterCommandHandler);
+            MyCommand = new Command<string>(MyCommandHandler);
+          
             ValidateCommand = new Command<string>(ValidateCommandHandler);
             AddValidations();
-        }    
-        private async void RegisterCommandHandler(object obj)
-        {
-            await Shell.Current.GoToAsync($"/{nameof(RegisterPage)}");
         }
-        private async void LoginCommandHandler(object obj)
+        private async void MyCommandHandler(string obj)
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-           
-            await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+            if (obj.Equals("Register"))
+            {
+                await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+            }
+            else if (obj.Equals("Cancel"))
+            {
+                await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+            }
         }
+       
         private void ValidateCommandHandler(string field)
         {
             switch (field)
@@ -62,4 +64,3 @@ namespace STVMatrimony.ViewModels
         }
     }
 }
-

@@ -17,6 +17,7 @@ namespace STVMatrimony.BootStrap
             _builder.RegisterType<ItemDetailViewModel>();
             _builder.RegisterType<ItemsViewModel>();
             _builder.RegisterType<LoginViewModel>();
+            _builder.RegisterType<RegisterViewModel>();
 
             // MockDataSource
             _builder.RegisterType<Services.MockDataStore>();
