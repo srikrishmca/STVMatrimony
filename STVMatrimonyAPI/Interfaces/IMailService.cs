@@ -5,6 +5,7 @@ namespace STVMatrimonyAPI.Interfaces
 {
     public interface IMailService
     {
-        Task SendEmailAsync(MailRequest mailRequest);
+        Task<bool> SendEmailAsync(MailRequest mailRequest);
+        Task<bool> SendRegisterEmailAsync(MailRequest mailRequest);
     }
 }

@@ -18,12 +18,33 @@ namespace STVMatrimonyAPI.Controllers
     {
         public IAdminUserRepository _Repository;
         private readonly IOptions<Model.APIConfiguration> _apiConfiguration;
-       
-        public AdminUserController(IAdminUserRepository adminRepository,IOptions<Model.APIConfiguration> apiConfig)
+        private readonly IMailService _mailService;
+
+        public AdminUserController(IAdminUserRepository adminRepository,IOptions<Model.APIConfiguration> apiConfig,IMailService mailService)
         {
             _Repository = adminRepository;
             _apiConfiguration = apiConfig;
+            _mailService = mailService;
 
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> SendEmailTest()
+        {
+            Model.MailRequest mailRequest = new Model.MailRequest()
+            {
+                ToEmail = "stvmatrimony@gmail.com",
+                Subject = "Your account has been created!",
+
+            };
+            mailRequest.Body = "<h2>Your account has been created!</h2>" +
+                "<h4>Congratulations and welcome to STVMatrimony<h4>" +
+                "<a href='" + string.Empty + "'Verify this email address </a>";
+            // Message display in Mobile app  
+            //"Welcome to STVMatrimony! Your account is ready,but there is one last step: please validate that you are indeed the owner of " + request.Email + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
+
+
+            await _mailService.SendRegisterEmailAsync(mailRequest);
+            return Ok("Email sent");
         }
         [HttpPost("[action]")]
         public async Task<IActionResult> InsertAdminUser(AdminUser request)
@@ -36,7 +57,20 @@ namespace STVMatrimonyAPI.Controllers
             var result = await _Repository.InsertAdminUser(request);
             if (result > 0)
             {
-                // Add Send Email function 
+                Model.MailRequest mailRequest = new Model.MailRequest()
+                {
+                    ToEmail = request.Email,
+                    Subject = "Your account has been created!",
+                  
+                };
+                mailRequest.Body = "<h2>Your account has been created!</h2>" +
+                    "<h4>Congratulations and welcome to STVMatrimony<h4>" +
+                    "<a href='"+string.Empty+ "'Verify this email address </a>";
+                  // Message display in Mobile app  
+                    //"Welcome to STVMatrimony! Your account is ready,but there is one last step: please validate that you are indeed the owner of " + request.Email + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
+
+
+                await _mailService.SendRegisterEmailAsync(mailRequest);
                 return Ok(result);
             }
             else
