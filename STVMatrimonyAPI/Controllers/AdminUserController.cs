@@ -26,6 +26,27 @@ namespace STVMatrimonyAPI.Controllers
 
         }
         [HttpPost("[action]")]
+        public async Task<IActionResult> InsertAdminUser(AdminUser request)
+        {
+
+            if (!string.IsNullOrWhiteSpace(request.Password))
+            {
+                request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
+            }
+            var result = await _Repository.InsertAdminUser(request);
+            if (result > 0)
+            {
+                // Add Send Email function 
+                return Ok(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+            
+        }
+
+        [HttpPost("[action]")]
         public async Task<IActionResult> InsertUpdateAdminUser(AdminUser request)
         {
 

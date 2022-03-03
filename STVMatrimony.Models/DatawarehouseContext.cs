@@ -31,8 +31,6 @@ namespace STVMatrimony.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=103.102.234.23;Database=mk_matrimonydb;User Id=Maadhu;Password=Welcome@123;");
             }
         }
 
@@ -43,7 +41,7 @@ namespace STVMatrimony.Models
             modelBuilder.Entity<AdminUser>(entity =>
             {
                 entity.HasIndex(e => e.Username)
-                    .HasName("UQ__AdminUse__F3DBC572B397C7A1")
+                    .HasName("UQ__AdminUse__F3DBC5721F311AD8")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -52,6 +50,14 @@ namespace STVMatrimony.Models
                     .HasColumnName("email")
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.IsActive)
+                    .HasColumnName("isActive")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.IsEmailVerified)
+                    .HasColumnName("isEmailVerified")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Password)
                     .IsRequired()

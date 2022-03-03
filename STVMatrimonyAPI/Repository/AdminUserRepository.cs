@@ -16,6 +16,17 @@ namespace STVMatrimonyAPI.Repository
         {
             _dbContext = dbContext;
         }
+        public async Task<int> InsertAdminUser(AdminUser request)
+        {
+            try
+            {
+                return await InsertUpdateAdminUser(request);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public async Task<int> InsertUpdateAdminUser(AdminUser request)
         {
             try
@@ -28,6 +39,9 @@ namespace STVMatrimonyAPI.Repository
                 }
                 else
                 {
+                    // for first register set email verified to false and send a email verification link to user
+                    request.IsEmailVerified = false;
+                    request.IsActive = false;
                     _ = _dbContext.AdminUser.Add(request);
                     int result = await _dbContext.SaveChangesAsync();
                     return (result == 1) ? request.Id : 0;

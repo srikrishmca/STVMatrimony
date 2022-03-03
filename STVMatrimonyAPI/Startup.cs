@@ -36,7 +36,7 @@ namespace STVMatrimonyAPI
 
             // Get the API Configuration
             services.AddOptions<Model.APIConfiguration>().Bind(Configuration.GetSection("APIConfiguration"));
-
+            services.AddOptions<Model.EMailConfiguration>().Bind(Configuration.GetSection("EMailConfiguration"));
             // Register Repository
             services.AddScoped<IAdminUserRepository, AdminUserRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();

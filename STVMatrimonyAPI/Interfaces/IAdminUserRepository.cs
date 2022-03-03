@@ -9,6 +9,7 @@ namespace STVMatrimonyAPI.Interfaces
 {
     public interface IAdminUserRepository
     {
+        Task<int> InsertAdminUser(AdminUser request);
         Task<int> InsertUpdateAdminUser(AdminUser request);
         Task<string> AuthenticateUserDetails(AuthenticateUserDetailsRequest request);
         Task<AdminUser> GetUserAdmin(AuthenticateUserDetailsRequest request);
