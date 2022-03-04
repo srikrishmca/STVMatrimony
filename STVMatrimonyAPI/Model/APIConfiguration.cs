@@ -7,5 +7,6 @@ namespace STVMatrimonyAPI.Model
         public string ApplicationName { get; set; }
         public string Version { get; set; }
         public string STVEncryptionKey { get; set; }
+        public string STVHost { get; set; }
     }
 }

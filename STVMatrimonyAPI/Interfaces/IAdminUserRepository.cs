@@ -14,5 +14,8 @@ namespace STVMatrimonyAPI.Interfaces
         Task<string> AuthenticateUserDetails(AuthenticateUserDetailsRequest request);
         Task<AdminUser> GetUserAdmin(AuthenticateUserDetailsRequest request);
         Task<IEnumerable<AdminUser>> GetAllAdminUsers();
+        Task<bool> Verify(int UserId);
+        Task<bool> CheckEmailExists(string EmailId);
+        Task<bool> CheckUserNameExists(string UserName);
     }
 }

@@ -41,7 +41,7 @@ namespace STVMatrimony.Models
             modelBuilder.Entity<AdminUser>(entity =>
             {
                 entity.HasIndex(e => e.Username)
-                    .HasName("UQ__AdminUse__F3DBC5721F311AD8")
+                    .HasName("UQ__AdminUse__F3DBC57268F3C8A6")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -51,13 +51,9 @@ namespace STVMatrimony.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IsActive)
-                    .HasColumnName("isActive")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.IsActive).HasColumnName("isActive");
 
-                entity.Property(e => e.IsEmailVerified)
-                    .HasColumnName("isEmailVerified")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.IsEmailVerified).HasColumnName("isEmailVerified");
 
                 entity.Property(e => e.Password)
                     .IsRequired()

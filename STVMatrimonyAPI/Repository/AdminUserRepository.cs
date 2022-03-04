@@ -7,10 +7,14 @@ using STVMatrimonyAPI.Interfaces;
 using STVMatrimony.Models.APIRequest;
 using Microsoft.EntityFrameworkCore;
 using STVMatrimony.Utility;
+using System.Data;
+using Microsoft.Data.SqlClient;
+
 namespace STVMatrimonyAPI.Repository
 {
     public class AdminUserRepository : IAdminUserRepository
     {
+        
         DatawarehouseContext _dbContext;
         public AdminUserRepository(DatawarehouseContext dbContext)
         {
@@ -71,6 +75,67 @@ namespace STVMatrimonyAPI.Repository
             return await query.ToListAsync();
         }
 
-        
+        public async Task<bool> Verify(int UserId)
+        {
+            bool result = false;
+            try
+            {
+                using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+                {
+
+                    try
+                    {
+                        command.CommandText = "Update AdminUser set IsEmailVerified = 1,IsActive=1 where Id = @ID";
+                        command.CommandType = CommandType.Text;
+                        command.Parameters.Add(new SqlParameter("@ID", UserId));
+                        _dbContext.Database.OpenConnection();
+                        await command.ExecuteNonQueryAsync();
+                        result = true;
+                    }
+                    catch
+                    {
+                        result = false;
+                    }
+                    finally
+                    {
+                        _dbContext.Database.CloseConnection();
+                    }
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
+        }
+        public async Task<bool> CheckEmailExists(string EmailId)
+        {
+            bool result = false;
+            try
+            {
+                var _email = await _dbContext.AdminUser.AsNoTracking().Where(i => i.Email == EmailId).FirstOrDefaultAsync();
+                result = _email != null;
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
+        }
+        public async Task<bool> CheckUserNameExists(string UserName)
+        {
+            bool result = false;
+            try
+            {
+                var _email = await _dbContext.AdminUser.AsNoTracking().Where(i => i.Username == UserName).FirstOrDefaultAsync();
+                result = _email != null;
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
+        }
+
     }
 }
