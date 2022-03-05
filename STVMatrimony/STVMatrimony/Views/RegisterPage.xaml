@@ -13,6 +13,7 @@
         <Grid RowDefinitions="*" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
             <ScrollView VerticalScrollBarVisibility="Never">
                 <StackLayout>
+                  
                     <!--#region  Register Region-->
                     <StackLayout Margin="20" Spacing="5" IsVisible="{Binding IsRegistrationDone, Converter={xct:InvertedBoolConverter}}">
                         <!--#region  Header Region-->
@@ -122,11 +123,11 @@
                         </PanCake:PancakeView>
                         <!--#endregion-->
                         <Grid RowDefinitions="Auto,Auto">
-                            <Label Text="Welcome to STVMatrimony!" Grid.Row="0" Style="{StaticResource Body1_MulishSemiBold}" HorizontalTextAlignment="Center"/>
-                            <Label Text="{Binding ResultText}" Grid.Row="1" Style="{StaticResource Body1_MulishSemiBold}"/>
+                            <Label Text="Welcome to STVMatrimony!" Grid.Row="0" class="Headline4_MulishBold" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding ResultText}" Grid.Row="1"  class="Headline4_MulishBold"/>
                         </Grid>
                        
-                        <Button Margin="10"  Text="Login" Style="{StaticResource Base_Button}"   Command="{Binding MyCommand}" CommandParameter="Cancel"/>
+                        <Button Margin="10"  Text="Ok" Style="{StaticResource Base_Button}"   Command="{Binding MyCommand}" CommandParameter="Cancel"/>
                     </StackLayout>
                     <!--#endregion-->
                 </StackLayout>

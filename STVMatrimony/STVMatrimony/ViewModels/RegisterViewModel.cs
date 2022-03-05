@@ -17,6 +17,7 @@ namespace STVMatrimony.ViewModels
         public ValidatableObject<string> UserName { get; set; }
         public ValidatableObject<string> Email { get; set; }
         public ValidatableObject<string> Password { get; set; }
+       
         private bool _IsRegistrationDone;
         public bool IsRegistrationDone
         {
@@ -53,6 +54,7 @@ namespace STVMatrimony.ViewModels
         public RegisterViewModel()
         {
             IsRegistrationDone = false;
+         
             ResultText = string.Empty;
             MyCommand = new Command<string>(MyCommandHandler);
             ValidateCommand = new Command<string>(ValidateCommandHandler);
@@ -62,11 +64,22 @@ namespace STVMatrimony.ViewModels
         {
             await Shell.Current.DisplayAlert("STVMatrimony", Message, "OK");
         }
+        private bool ValidateRegister()
+        {
+            if(Email.IsValid==false || Password.IsValid==false || UserName.IsValid==false)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         private async void MyCommandHandler(string obj)
         {
             if (obj.Equals("Register"))
             {
-
+                await Helpers.Controls.CommonMethod.ShowLoading();
                 #region Validation code 
                 Email.IsFirstTime = false;
                 Email.Validate();
@@ -75,29 +88,48 @@ namespace STVMatrimony.ViewModels
                 Password.IsFirstTime = false;
                 Password.Validate();
                 #endregion
-                
+
                 try
                 {
-                    IsRegistrationDone = true;
+                    if (ValidateRegister())
+                    {
 
-                    string strResult = "Your account is ready,but there is one last step: please validate that you are indeed the owner of " + Email.Value + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
-                    //  await Shell.Current.GoToAsync($"RegisterSucessPage?ResultText=1");
-                    ResultText = strResult;
+                        AdminUser adminUser = new AdminUser()
+                        {
+                            Email = Email.Value,
+                            Password = Password.Value,
+                            Username = UserName.Value,
+                            Id = 0,
+                        };
+                        ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, AdminUser>("AdminUser/InsertAdminUser", adminUser);
+                        if (result != null)
+                        {
+                            IsRegistrationDone = true;
+                            string strResult = "Your account is ready,but there is one last step: please validate that you are indeed the owner of " + Email.Value + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
+                            //  await Shell.Current.GoToAsync($"RegisterSucessPage?ResultText=1");
+                            ResultText = strResult;
+                        }
+                       
+                    }
+                    else
+                    {
+                        
+                    }
+                    
                 }
                 catch (System.Exception ex)
                 {
                     await DisplayAlert(ex.Message);
                 }
+                finally
+                {
+                    await Helpers.Controls.CommonMethod.HideLoading();
+
+                }
 
                 
 
-                //AdminUser adminUser = new AdminUser()
-                //{
-                //    Email = Email.Value,
-                //    Password = Password.Value,
-                //    Username = UserName.Value,
-                //    Id = 0,
-                //};
+                
 
 
                 //ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, AdminUser>
