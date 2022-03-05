@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             x:Class="STVMatrimony.Views.RegisterSucessPage">
+    <ContentPage.Content>
+        <Grid RowDefinitions="*" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
+           
+                <StackLayout Margin="20" Spacing="5" >
+                    <!--#region  Header Region-->
+                    <PanCake:PancakeView CornerRadius="5" >
+                        <Grid RowDefinitions="Auto,Auto" BackgroundColor="{StaticResource PrimaryColor}"  RowSpacing="5">
+                            <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="0"/>
+                            <Label Text="Successfully Registered" HorizontalOptions="Center"
+                               FontSize="Title" TextColor="White" Grid.Row="1"/>
+                        </Grid>
+                    </PanCake:PancakeView>
+                    <!--#endregion-->
+                    <Label Text="{Binding ResultText}" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                    <Button Margin="10"  Text="Login" Style="{StaticResource Base_Button}" Clicked="Button_Clicked"/>
+                </StackLayout>
+    
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

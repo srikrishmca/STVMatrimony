@@ -12,89 +12,124 @@
     <ContentPage.Content>
         <Grid RowDefinitions="*" BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
             <ScrollView VerticalScrollBarVisibility="Never">
-                <StackLayout Margin="20" Spacing="5" >
-                    <PanCake:PancakeView CornerRadius="5" >
-                        <Grid RowDefinitions="Auto,*" BackgroundColor="{StaticResource PrimaryColor}"  RowSpacing="5">
-                            <Label Text="Register Here" HorizontalOptions="Center"
+                <StackLayout>
+                    <!--#region  Register Region-->
+                    <StackLayout Margin="20" Spacing="5" IsVisible="{Binding IsRegistrationDone, Converter={xct:InvertedBoolConverter}}">
+                        <!--#region  Header Region-->
+                        <PanCake:PancakeView CornerRadius="5" >
+                            <Grid RowDefinitions="Auto,*" BackgroundColor="{StaticResource PrimaryColor}"  RowSpacing="5">
+                                <Label Text="Register Here" HorizontalOptions="Center"
                                FontSize="Title" TextColor="White" Grid.Row="0"/>
-                            <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="1"/>
-                        </Grid>
-                    </PanCake:PancakeView>
-                    <Label Text="Name" Style="{StaticResource Body1_MulishSemiBold}"></Label>
-                    <Frame  x:Name="NameFrame" Style="{StaticResource Base_FrameEntry}">
-                        <Entry Placeholder="Enter your Name"  Text="{Binding Email.Value}"
-                            Style="{StaticResource Base_Entry}">
-                            <Entry.Effects>
-                                <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
-                            </Entry.Effects>
-                        </Entry>
-                    </Frame>
-                    <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
-                    <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
-                        <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}"
-                    Style="{StaticResource Base_Entry}">
-                            <Entry.Behaviors>
-                                <xct:UserStoppedTypingBehavior
+                                <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="1"/>
+                            </Grid>
+                        </PanCake:PancakeView>
+                        <!--#endregion-->
+
+                        <Label Text="Name" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                        <Frame  x:Name="NameFrame" Style="{StaticResource Base_FrameEntry}">
+                            <Entry Placeholder="Enter your Name"  Text="{Binding UserName.Value}" Style="{StaticResource Base_Entry}">
+                                <Entry.Behaviors>
+                                    <xct:UserStoppedTypingBehavior
+							Command="{Binding ValidateCommand}" CommandParameter="username"
+                            StoppedTypingTimeThreshold="50"    ShouldDismissKeyboardAutomatically="False"/>
+                                </Entry.Behaviors>
+                                <Entry.Triggers>
+                                    <DataTrigger TargetType="Entry" Binding="{Binding UserName.IsValid}" Value="False">
+                                        <Setter TargetName="NameFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                        <Setter TargetName="RegisterButton" Property="Button.IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Entry.Triggers>
+                                <Entry.Effects>
+                                    <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                                </Entry.Effects>
+                            </Entry>
+                        </Frame>
+                        <Label
+                IsVisible="{Binding UserName.IsValid, Converter={xct:InvertedBoolConverter}}"
+				Text="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+				TextColor="{StaticResource FailColor}" />
+
+                        <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                        <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
+                            <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}" Style="{StaticResource Base_Entry}">
+                                <Entry.Behaviors>
+                                    <xct:UserStoppedTypingBehavior
 							Command="{Binding ValidateCommand}" CommandParameter="email"
                             StoppedTypingTimeThreshold="50"    ShouldDismissKeyboardAutomatically="False"/>
-                            </Entry.Behaviors>
-                            <Entry.Triggers>
-                                <DataTrigger TargetType="Entry" Binding="{Binding Email.IsValid}" Value="False">
-                                    <Setter TargetName="EmailFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
-                                    <Setter TargetName="LoginButton" Property="Button.IsEnabled" Value="False" />
-                                </DataTrigger>
-                            </Entry.Triggers>
-                            <Entry.Effects>
-                                <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
-                            </Entry.Effects>
-                        </Entry>
-                    </Frame>
-                    <Label Text="Password" Style="{StaticResource Body1_MulishSemiBold}"></Label>
-                    <Frame
+                                </Entry.Behaviors>
+                                <Entry.Triggers>
+                                    <DataTrigger TargetType="Entry" Binding="{Binding Email.IsValid}" Value="False">
+                                        <Setter TargetName="EmailFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                        <Setter TargetName="RegisterButton" Property="Button.IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Entry.Triggers>
+                                <Entry.Effects>
+                                    <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                                </Entry.Effects>
+                            </Entry>
+                        </Frame>
+                        <Label
+                IsVisible="{Binding Email.IsValid, Converter={xct:InvertedBoolConverter}}"
+				Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+				TextColor="{StaticResource FailColor}" />
+
+                        <Label Text="Password" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                        <Frame
                 x:Name="PasswordFrame"
                 Style="{StaticResource Base_FrameEntry}">
-                        <Entry
-                    IsPassword="True"
-                    Placeholder="Enter your password"
+                            <Entry IsPassword="True" Placeholder="Enter your password"
                     ReturnCommand="{Binding LoginCommand}"
-                    Text="{Binding Password.Value}"
-                    Style="{StaticResource Base_Entry}">
-                            <Entry.Behaviors>
-                                <xct:UserStoppedTypingBehavior
-							Command="{Binding ValidateCommand}"
-							CommandParameter="password"
-                            StoppedTypingTimeThreshold="50"
+                    Text="{Binding Password.Value}"  Style="{StaticResource Base_Entry}">
+                                <Entry.Behaviors>
+                                    <xct:UserStoppedTypingBehavior Command="{Binding ValidateCommand}"
+							CommandParameter="password"  StoppedTypingTimeThreshold="50"
                             ShouldDismissKeyboardAutomatically="False"/>
-                            </Entry.Behaviors>
-                            <Entry.Triggers>
-                                <DataTrigger 
-							TargetType="Entry"
-							Binding="{Binding Password.IsValid}"
-							Value="False">
-                                    <Setter TargetName="PasswordFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
-                                    <Setter TargetName="LoginButton" Property="Button.IsEnabled" Value="False" />
-                                </DataTrigger>
-                            </Entry.Triggers>
-                            <Entry.Effects>
-                                <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
-                            </Entry.Effects>
-                        </Entry>
-                    </Frame>
-                    <Grid ColumnDefinitions="*,*">
-                        <Button Grid.Column="0"
-            x:Name="RegisterButton" IsEnabled="False"
-            Command="{Binding MyCommand}" CommandParameter="Register"
-               Margin="10"  Text="Register"
+                                </Entry.Behaviors>
+                                <Entry.Triggers>
+                                    <DataTrigger TargetType="Entry" Binding="{Binding Password.IsValid}" Value="False">
+                                        <Setter TargetName="PasswordFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                        <Setter TargetName="RegisterButton" Property="Button.IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Entry.Triggers>
+                                <Entry.Effects>
+                                    <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                                </Entry.Effects>
+                            </Entry>
+                        </Frame>
+                        <Label
+                IsVisible="{Binding Password.IsValid, Converter={xct:InvertedBoolConverter}}"
+				Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+				TextColor="{StaticResource FailColor}" />
+                        <Grid ColumnDefinitions="*,*">
+                            <Button Grid.Column="0" x:Name="RegisterButton" IsEnabled="False"
+            Command="{Binding MyCommand}" CommandParameter="Register" Margin="10"  Text="Register"
             Style="{StaticResource Base_Button}"/>
-                        <Button Grid.Column="1"
-            x:Name="CancelButton" IsEnabled="True"
-            Command="{Binding MyCommand}" CommandParameter="Cancel"
-              Margin="10" Text="Cancel"
+                            <Button Grid.Column="1"  x:Name="CancelButton" IsEnabled="True"
+            Command="{Binding MyCommand}" CommandParameter="Cancel"  Margin="10" Text="Cancel"
             Style="{StaticResource Base_Button}"/>
-                    </Grid>
-
+                        </Grid>
+                    </StackLayout>
+                    <!--#endregion-->
+                    <!--#region Register Success Message-->
+                    <StackLayout Margin="20" Spacing="5" IsVisible="{Binding IsRegistrationDone}">
+                        <!--#region  Header Region-->
+                        <PanCake:PancakeView CornerRadius="5" >
+                            <Grid RowDefinitions="Auto,Auto" BackgroundColor="{StaticResource PrimaryColor}"  RowSpacing="5">
+                                <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="0"/>
+                                <Label Text="Successfully Registered" HorizontalOptions="Center"
+                               FontSize="Title" TextColor="White" Grid.Row="1"/>
+                            </Grid>
+                        </PanCake:PancakeView>
+                        <!--#endregion-->
+                        <Grid RowDefinitions="Auto,Auto">
+                            <Label Text="Welcome to STVMatrimony!" Grid.Row="0" Style="{StaticResource Body1_MulishSemiBold}" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding ResultText}" Grid.Row="1" Style="{StaticResource Body1_MulishSemiBold}"/>
+                        </Grid>
+                       
+                        <Button Margin="10"  Text="Login" Style="{StaticResource Base_Button}"   Command="{Binding MyCommand}" CommandParameter="Cancel"/>
+                    </StackLayout>
+                    <!--#endregion-->
                 </StackLayout>
-
             </ScrollView>
             <!-- Here add the code that is being explained in this block number five (5)-->
         </Grid>

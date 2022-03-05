@@ -44,7 +44,7 @@ namespace STVMatrimony.Helpers.Validations
                 return false;
             }
 
-            var str = value.ToString();
+            string str = value.ToString();
 
             return !string.IsNullOrWhiteSpace(str);
         }

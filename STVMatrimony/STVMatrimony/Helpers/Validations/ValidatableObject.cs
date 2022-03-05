@@ -54,6 +54,16 @@ namespace STVMatrimony.Helpers.Validations
                 RaisePropertyChanged(() => IsButtonActive);
             }
         }
+        public bool IsFirstTime
+        {
+            get => _isFirstTime;
+            set
+            {
+
+                _isFirstTime = value;
+                RaisePropertyChanged(() => IsFirstTime);
+            }
+        }
 
         public ValidatableObject()
         {

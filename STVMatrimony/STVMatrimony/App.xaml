@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:styles="clr-namespace:STVMatrimony.Styles"
+             xmlns:styles="clr-namespace:STVMatrimony.Styles" 
+             xmlns:converters="clr-namespace:STVMatrimony.Helpers.Converters"
              x:Class="STVMatrimony.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
     <Application.Resources>
         <ResourceDictionary>
+            <converters:DoneIconConverter x:Key="DoneIconConverter"/>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <styles:Theme></styles:Theme>
             </ResourceDictionary.MergedDictionaries>

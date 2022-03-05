@@ -9,7 +9,7 @@ namespace STVMatrimony.Views
         public RegisterPage()
         {
             InitializeComponent();
-            this.BindingContext = BootStrap.AppContainer.Resolve<RegisterViewModel>();
+            BindingContext = BootStrap.AppContainer.Resolve<RegisterViewModel>();
         }
     }
 }
