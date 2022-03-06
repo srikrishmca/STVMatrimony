@@ -60,10 +60,7 @@ namespace STVMatrimony.ViewModels
             ValidateCommand = new Command<string>(ValidateCommandHandler);
             AddValidations();
         }
-        private async System.Threading.Tasks.Task DisplayAlert(string Message)
-        {
-            await Shell.Current.DisplayAlert("STVMatrimony", Message, "OK");
-        }
+       
         private bool ValidateRegister()
         {
             if(Email.IsValid==false || Password.IsValid==false || UserName.IsValid==false)
@@ -75,75 +72,74 @@ namespace STVMatrimony.ViewModels
                 return true;
             }
         }
+        private async System.Threading.Tasks.Task DisplayAlert(string Message)
+        {
+            await Shell.Current.DisplayAlert("STVMatrimony", Message, "OK");
+        }
         private async void MyCommandHandler(string obj)
         {
             if (obj.Equals("Register"))
             {
                 await Helpers.Controls.CommonMethod.ShowLoading();
-                //#region Validation code 
-                //Email.IsFirstTime = false;
-                //Email.Validate();
-                //UserName.IsFirstTime = false;
-                //UserName.Validate();
-                //Password.IsFirstTime = false;
-                //Password.Validate();
-                //#endregion
-                await System.Threading.Tasks.Task.Delay(3000);
+                #region Validation code 
+                Email.IsFirstTime = false;
+                Email.Validate();
+                UserName.IsFirstTime = false;
+                UserName.Validate();
+                Password.IsFirstTime = false;
+                Password.Validate();
+                #endregion
+                
                 try
                 {
-                    //if (ValidateRegister())
-                    //{
+                    if (ValidateRegister())
+                    {
+                        ApiResponse<bool> checkEmail = await CommonService.Instance.GetResponseAsync<bool>("AdminUser/CheckEmailExists?EmailId=" + Email.Value);
+                        if (checkEmail.Result)
+                        {
+                            await Helpers.Controls.CommonMethod.HideLoading();
+                            await DisplayAlert("Email already exists!");
+                            return;
+                        }
+                        ApiResponse<bool> checkUserName = await CommonService.Instance.GetResponseAsync<bool>("AdminUser/CheckUserNameExists?UserName=" + UserName.Value);
+                        if (checkUserName.Result)
+                        {
+                            await Helpers.Controls.CommonMethod.HideLoading();
+                            await DisplayAlert("UserName already exists!");
+                        }
+                        else
+                        {
+                            AdminUser adminUser = new AdminUser()
+                            {
+                                Email = Email.Value,
+                                Password = Password.Value,
+                                Username = UserName.Value,
+                                Id = 0,
+                            };
+                            ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, AdminUser>("AdminUser/InsertAdminUser", adminUser);
+                            if (result != null)
+                            {
+                                IsRegistrationDone = true;
+                                string strResult = "Your account is ready,but there is one last step: please validate that you are indeed the owner of " + Email.Value + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
+                                ResultText = strResult;
+                            }
+                        }
 
-                    //    AdminUser adminUser = new AdminUser()
-                    //    {
-                    //        Email = Email.Value,
-                    //        Password = Password.Value,
-                    //        Username = UserName.Value,
-                    //        Id = 0,
-                    //    };
-                    //    ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, AdminUser>("AdminUser/InsertAdminUser", adminUser);
-                    //    if (result != null)
-                    //    {
-                    //        IsRegistrationDone = true;
-                    //        string strResult = "Your account is ready,but there is one last step: please validate that you are indeed the owner of " + Email.Value + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
-                    //        //  await Shell.Current.GoToAsync($"RegisterSucessPage?ResultText=1");
-                    //        ResultText = strResult;
-                    //    }
-                       
-                    //}
-                    //else
-                    //{
-                        
-                    //}
-                    
+                    }
+                    else
+                    {
+                        await Helpers.Controls.CommonMethod.HideLoading();
+                    }
                 }
                 catch (System.Exception ex)
                 {
+                    await Helpers.Controls.CommonMethod.HideLoading();
                     await DisplayAlert(ex.Message);
                 }
                 finally
                 {
                     await Helpers.Controls.CommonMethod.HideLoading();
-
                 }
-
-                
-
-                
-
-
-                //ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, AdminUser>
-                //    ("/AdminUser/InsertAdminUser", adminUser);
-                //if (result != null)
-                //{
-                //    if (result.Result > 0)
-                //    {
-                //       await Shell.Current.GoToAsync("RegisterSucessPage?ResultText=Welcome to STVMatrimony! Your account is ready,but there is one last step: please validate that you are indeed the owner of " + Email + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ");
-
-                //    }
-
-                //    // await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");   
-                //}
             }
             else if (obj.Equals("Cancel"))
             {

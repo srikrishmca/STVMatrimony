@@ -44,13 +44,55 @@ namespace STVMatrimony.ViewModels
         }    
         private async void RegisterCommandHandler(object obj)
         {
+            Email.IsValid = true;
+            Password.IsValid = true;
             await Shell.Current.GoToAsync($"/{nameof(RegisterPage)}");
         }
         private async void LoginCommandHandler(object obj)
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-           
-            await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+            await Helpers.Controls.CommonMethod.ShowLoading();
+            #region Validation code 
+            Email.IsFirstTime = false;
+            Email.Validate();
+            Password.IsFirstTime = false;
+            Password.Validate();
+            #endregion
+            if (ValidateLogin())
+            {
+                try
+                {
+
+                    await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+                }
+                catch (System.Exception ex)
+                {
+                    await Helpers.Controls.CommonMethod.HideLoading();
+                    await DisplayAlert(ex.Message);
+                }
+                finally
+                {
+                    await Helpers.Controls.CommonMethod.HideLoading();
+                }
+            }
+            else
+            {
+                await Helpers.Controls.CommonMethod.HideLoading();
+            }
+        }
+        private async System.Threading.Tasks.Task DisplayAlert(string Message)
+        {
+            await Shell.Current.DisplayAlert("STVMatrimony", Message, "OK");
+        }
+        private bool ValidateLogin()
+        {
+            if (Email.IsValid == false || Password.IsValid == false)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         private void ValidateCommandHandler(string field)
         {

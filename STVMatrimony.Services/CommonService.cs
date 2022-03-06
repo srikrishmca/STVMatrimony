@@ -76,12 +76,9 @@ namespace STVMatrimony.Services
 
                             // read the json from a stream
                             // json size doesn't matter because only a small piece is read at a time from the HTTP request
-                            var result = serializer.Deserialize<T1>(reader);
+                            var result = serializer.Deserialize<ApiResponse<T1>>(reader);
 
-                            responseResult.Result = result;
-                            responseResult.Version = "1.0";
-                            responseResult.IsError = false;
-                            responseResult.Message = "Success";
+                            responseResult = result;
                         }
                     }
                 }
