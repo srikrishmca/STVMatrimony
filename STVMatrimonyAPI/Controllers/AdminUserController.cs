@@ -9,6 +9,7 @@ using STVMatrimony.Models;
 using STVMatrimony.Models.APIRequest;
 using STVMatrimony.Utility;
 using Microsoft.Extensions.Options;
+using System.Web;
 
 namespace STVMatrimonyAPI.Controllers
 {
@@ -44,17 +45,13 @@ namespace STVMatrimonyAPI.Controllers
                 {
                     ToEmail = request.Email,
                     Subject = "Your account has been created!",
-                  
-                };
 
-                string strUserVerfication = _apiConfiguration.Value.STVHost+ "AdminUser/Verify?t=" + Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey,result.ToString());
+                };
+                string strURL = HttpUtility.HtmlEncode(Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, result.ToString()));
+                string strUserVerfication = _apiConfiguration.Value.STVHost + "AdminUser/Verify?t=" + strURL;
                 mailRequest.Body = "<h2>Your account has been created!</h2>" +
                     "<h4>Congratulations and welcome to STVMatrimony<h4>" +
-                    "<a href='"+strUserVerfication+ "'>Verify this email address </a>";
-                  // Message display in Mobile app  
-                    //"Welcome to STVMatrimony! Your account is ready,but there is one last step: please validate that you are indeed the owner of " + request.Email + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
-
-
+                    "<a href='" + strUserVerfication + "'>Verify this email address </a>";
                 await _mailService.SendRegisterEmailAsync(mailRequest);
                 return Ok(result);
             }
