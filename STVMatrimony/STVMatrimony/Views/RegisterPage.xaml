@@ -26,9 +26,9 @@
                         </PanCake:PancakeView>
                         <!--#endregion-->
 
-                        <Label Text="Name" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                        <Label Text="UserName" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                         <Frame  x:Name="NameFrame" Style="{StaticResource Base_FrameEntry}">
-                            <Entry Placeholder="Enter your Name"  Text="{Binding UserName.Value}" Style="{StaticResource Base_Entry}">
+                            <Entry Placeholder="Enter your UserName"  Text="{Binding UserName.Value}" Style="{StaticResource Base_Entry}">
                                 <Entry.Behaviors>
                                     <xct:UserStoppedTypingBehavior
 							Command="{Binding ValidateCommand}" CommandParameter="username"

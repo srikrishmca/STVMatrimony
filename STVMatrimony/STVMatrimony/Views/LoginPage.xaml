@@ -20,29 +20,28 @@
                             <Image Source="TopIcon.png"  HorizontalOptions="Center" Grid.Row="1"/>
                         </Grid>
                     </PanCake:PancakeView>
-                    <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
-                   <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
-                     <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}"
-                    Style="{StaticResource Base_Entry}">
-                                <Entry.Behaviors>
-                                    <xct:UserStoppedTypingBehavior
-							Command="{Binding ValidateCommand}" CommandParameter="email"
+                    <Label Text="UserName" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                    <Frame  x:Name="NameFrame" Style="{StaticResource Base_FrameEntry}">
+                        <Entry Placeholder="Enter your UserName"  Text="{Binding UserName.Value}" Style="{StaticResource Base_Entry}">
+                            <Entry.Behaviors>
+                                <xct:UserStoppedTypingBehavior
+							Command="{Binding ValidateCommand}" CommandParameter="username"
                             StoppedTypingTimeThreshold="50"    ShouldDismissKeyboardAutomatically="False"/>
-                                </Entry.Behaviors>
-                                <Entry.Triggers>
-                                    <DataTrigger TargetType="Entry" Binding="{Binding Email.IsValid}" Value="False">
-                                        <Setter TargetName="EmailFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
-                                        <Setter TargetName="LoginButton" Property="Button.IsEnabled" Value="False" />
-                                    </DataTrigger>
-                                </Entry.Triggers>
-                                <Entry.Effects>
-                                    <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
-                                </Entry.Effects>
-                            </Entry>
-                        </Frame>
+                            </Entry.Behaviors>
+                            <Entry.Triggers>
+                                <DataTrigger TargetType="Entry" Binding="{Binding UserName.IsValid}" Value="False">
+                                    <Setter TargetName="NameFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                    <Setter TargetName="LoginButton" Property="Button.IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Entry.Triggers>
+                            <Entry.Effects>
+                                <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                            </Entry.Effects>
+                        </Entry>
+                    </Frame>
                     <Label
-                IsVisible="{Binding Email.IsValid, Converter={xct:InvertedBoolConverter}}"
-				Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                IsVisible="{Binding UserName.IsValid, Converter={xct:InvertedBoolConverter}}"
+				Text="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 				TextColor="{StaticResource FailColor}" />
                     <Label Text="Password" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                     <Frame

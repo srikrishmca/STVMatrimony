@@ -1,4 +1,8 @@
-﻿using STVMatrimony.Helpers.Validations;
+﻿using STVMatrimony.APIModels;
+using STVMatrimony.Helpers.Validations;
+using STVMatrimony.Services;
+using STVMatrimony.Services.DBModels;
+using STVMatrimony.Services.Models;
 using STVMatrimony.Views;
 using System;
 using System.Collections.Generic;
@@ -12,7 +16,7 @@ namespace STVMatrimony.ViewModels
     {
         #region Properties
 
-        public ValidatableObject<string> Email { get; set; }
+        public ValidatableObject<string> UserName { get; set; }
         public ValidatableObject<string> Password { get; set; }
 
         #endregion
@@ -27,11 +31,10 @@ namespace STVMatrimony.ViewModels
 
         private void AddValidations()
         {
-            Email = new ValidatableObject<string>();
+            UserName = new ValidatableObject<string>();
             Password = new ValidatableObject<string>();
 
-            Email.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A email is required." });
-            Email.Validations.Add(new IsEmailRule<string> { ValidationMessage = "Email format is not correct" });
+            UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "UserName is required." });
             Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
         }
         public LoginViewModel()
@@ -44,7 +47,7 @@ namespace STVMatrimony.ViewModels
         }    
         private async void RegisterCommandHandler(object obj)
         {
-            Email.IsValid = true;
+            UserName.IsValid = true;
             Password.IsValid = true;
             await Shell.Current.GoToAsync($"/{nameof(RegisterPage)}");
         }
@@ -52,8 +55,8 @@ namespace STVMatrimony.ViewModels
         {
             await Helpers.Controls.CommonMethod.ShowLoading();
             #region Validation code 
-            Email.IsFirstTime = false;
-            Email.Validate();
+            UserName.IsFirstTime = false;
+            UserName.Validate();
             Password.IsFirstTime = false;
             Password.Validate();
             #endregion
@@ -61,8 +64,30 @@ namespace STVMatrimony.ViewModels
             {
                 try
                 {
+                    AuthenticateUserDetailsRequest request = new AuthenticateUserDetailsRequest()
+                    {
+                        Password = Password.Value,
+                        UserName = UserName.Value
+                    };
+                    ApiResponse<string> result = await CommonService.Instance.PostResponseAsync<string, AuthenticateUserDetailsRequest>
+                        ("AdminUser/AuthenticateUserDetails", request);
 
-                    await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+                    if (result.Result != null)
+                    {
+                        if (result.Result.Equals("Success"))
+                        {
+                            await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+                        }
+                        else
+                        {
+                            await DisplayAlert(result.Result);
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Invalid username or password.");
+                    }
+                  
                 }
                 catch (System.Exception ex)
                 {
@@ -85,7 +110,7 @@ namespace STVMatrimony.ViewModels
         }
         private bool ValidateLogin()
         {
-            if (Email.IsValid == false || Password.IsValid == false)
+            if (UserName.IsValid == false || Password.IsValid == false)
             {
                 return false;
             }
@@ -98,7 +123,7 @@ namespace STVMatrimony.ViewModels
         {
             switch (field)
             {
-                case "email": Email.Validate(); break;
+                case "email": UserName.Validate(); break;
                 case "password": Password.Validate(); break;
             }
         }

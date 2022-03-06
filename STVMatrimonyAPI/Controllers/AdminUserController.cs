@@ -119,12 +119,12 @@ namespace STVMatrimonyAPI.Controllers
                 }
                 else
                 {
-                    return Ok(new AdminUser());
+                    return Ok("Username not found.");
                 }
             }
             else
             {
-                return Ok(new AdminUser());
+                return Ok("Invalid username or password");
             }
         }
         [HttpGet("[action]")]
