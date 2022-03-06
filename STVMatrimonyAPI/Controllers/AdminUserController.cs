@@ -47,7 +47,7 @@ namespace STVMatrimonyAPI.Controllers
                     Subject = "Your account has been created!",
 
                 };
-                string strURL = HttpUtility.HtmlEncode(Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, result.ToString()));
+                string strURL = HttpUtility.UrlEncode(Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, result.ToString()));
                 string strUserVerfication = _apiConfiguration.Value.STVHost + "AdminUser/Verify?t=" + strURL;
                 mailRequest.Body = "<h2>Your account has been created!</h2>" +
                     "<h4>Congratulations and welcome to STVMatrimony<h4>" +
@@ -66,6 +66,7 @@ namespace STVMatrimonyAPI.Controllers
         {
             string strUserId= Helper.DecryptString(_apiConfiguration.Value.STVEncryptionKey, t);
             int UserId = Convert.ToInt32(strUserId);
+            //ToDo : Need to check its already verified.
             var result = await _Repository.Verify(UserId);
             if (result)
             {
