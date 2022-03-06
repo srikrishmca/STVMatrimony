@@ -119,12 +119,12 @@ namespace STVMatrimonyAPI.Controllers
                 }
                 else
                 {
-                    return Ok(NotFound("User details not found"));
+                    return Ok(new AdminUser());
                 }
             }
             else
             {
-                return Ok(NotFound("User details not found"));
+                return Ok(new AdminUser());
             }
         }
         [HttpGet("[action]")]
