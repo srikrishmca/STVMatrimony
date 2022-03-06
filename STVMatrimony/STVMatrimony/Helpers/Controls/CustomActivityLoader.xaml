@@ -1,11 +1,28 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" 
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             InputTransparent="False" HasSystemPadding="True"
+             CloseWhenBackgroundIsClicked="False"   Padding="50"
              x:Class="STVMatrimony.Helpers.Controls.CustomActivityLoader">
- 
-        <StackLayout>
-            <Label Text="Loading..." x:Name="LblText" />
+<pages:PopupPage.Animation>
+    <animations:MoveAnimation  PositionIn="Center" PositionOut="Center"/>
+</pages:PopupPage.Animation>
+    <Frame CornerRadius="15" OutlineColor="Black" HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout HorizontalOptions="FillAndExpand" >
+          
+                <ActivityIndicator  Color="Blue"
+                                        IsRunning="True"
+                                        IsEnabled="True"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        HeightRequest="70"
+                                        WidthRequest="70"/>
+               
+           
+            <Label Text="Loading.." TextColor="Blue" FontSize="Large"/>
         </StackLayout>
-    
+    </Frame>
 </pages:PopupPage>

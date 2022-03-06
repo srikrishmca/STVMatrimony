@@ -34,7 +34,7 @@ namespace STVMatrimony.Helpers.Controls
             CustomActivityLoader control = (CustomActivityLoader)bindable;
             if (oldValue != newValue)
             {
-                control.LblText.Text = newValue.ToString();
+              //  control.LblText.Text = newValue.ToString();
             }
         }
     }
