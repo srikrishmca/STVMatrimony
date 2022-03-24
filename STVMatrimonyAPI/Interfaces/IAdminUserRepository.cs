@@ -7,13 +7,13 @@ using STVMatrimony.Models.APIRequest;
 
 namespace STVMatrimonyAPI.Interfaces
 {
-    public interface IAdminUserRepository
+    public interface IUserDetailsRepository
     {
-        Task<int> InsertAdminUser(AdminUser request);
-        Task<int> InsertUpdateAdminUser(AdminUser request);
+        Task<int> InsertUserDetails(UserDetails request);
+        Task<int> InsertUpdateUserDetails(UserDetails request);
         Task<string> AuthenticateUserDetails(AuthenticateUserDetailsRequest request);
-        Task<AdminUser> GetUserAdmin(AuthenticateUserDetailsRequest request);
-        Task<IEnumerable<AdminUser>> GetAllAdminUsers();
+        Task<UserDetails> GetUserAdmin(AuthenticateUserDetailsRequest request);
+        Task<IEnumerable<UserDetails>> GetAllUserDetailss();
         Task<bool> Verify(int UserId);
         Task<bool> CheckEmailExists(string EmailId);
         Task<bool> CheckUserNameExists(string UserName);

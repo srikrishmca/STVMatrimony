@@ -7,15 +7,10 @@ using System.Collections.Generic;
 
 namespace STVMatrimony.Models
 {
-    public partial class Photos
+    public partial class ProfileLogCount
     {
         public int Id { get; set; }
-        public string Pic1 { get; set; }
-        public string Pic2 { get; set; }
-        public string Pic3 { get; set; }
-        public string Pic4 { get; set; }
-        public string Raasi { get; set; }
-        public string Navamsam { get; set; }
-        public int CustomerId { get; set; }
+        public int UserId { get; set; }
+        public int? ProfileCount { get; set; }
     }
 }

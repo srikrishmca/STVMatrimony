@@ -17,21 +17,21 @@ namespace STVMatrimonyAPI.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<int> InsertUpdateCustomerPhotos(Photos request)
+        public async Task<int> InsertUpdateCustomerPhotos(ProfilePic request)
         {
             try
             {
                 if (request.Id > 0)
                 {
 
-                    _dbContext.Photos.Update(request);
+                    _dbContext.ProfilePic.Update(request);
                     int result = await _dbContext.SaveChangesAsync();
                     return (result == 1) ? request.Id : 0;
                 }
                 else
                 {
                   
-                    _ = _dbContext.Photos.Add(request);
+                    _ = _dbContext.ProfilePic.Add(request);
                     int result = await _dbContext.SaveChangesAsync();
                     return (result == 1) ? request.Id : 0;
                 }
@@ -42,42 +42,12 @@ namespace STVMatrimonyAPI.Repository
             }
         }
 
-        public async Task<Photos> GetCustomerPhotosByCustomerId(int CustomerId)
+        public async Task<ProfilePic> GetCustomerPhotosByCustomerId(int ProfileId)
         {
-            var query = _dbContext.Photos.AsNoTracking().Where(i => i.CustomerId == CustomerId);
-            return (query != null) ? await query.FirstOrDefaultAsync() : new Photos();
+            var query = _dbContext.ProfilePic.AsNoTracking().Where(i => i.ProfileId == ProfileId);
+            return (query != null) ? await query.FirstOrDefaultAsync() : new ProfilePic();
         }
 
-        public async Task<int> InsertUpdateCustomerPreference(Preferences request)
-        {
-            try
-            {
-                if (request.Id > 0)
-                {
-
-                    _dbContext.Preferences.Update(request);
-                    int result = await _dbContext.SaveChangesAsync();
-                    return (result == 1) ? request.Id : 0;
-                }
-                else
-                {
-
-                    _ = _dbContext.Preferences.Add(request);
-                    int result = await _dbContext.SaveChangesAsync();
-                    return (result == 1) ? request.Id : 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async Task<Preferences> GetCustomerPreferenceByCustomerId(int CustomerId)
-        {
-            var query = _dbContext.Preferences.AsNoTracking().Where(i => i.CustomerId == CustomerId);
-            return (query != null) ? await query.FirstOrDefaultAsync() : new Preferences();
-        }
-
+       
     }
 }

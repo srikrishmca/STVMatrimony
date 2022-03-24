@@ -7,13 +7,14 @@ using System.Collections.Generic;
 
 namespace STVMatrimony.Models
 {
-    public partial class Customeractivation
+    public partial class UserdetailsActivation
     {
-        public int? Id { get; set; }
-        public int? Custid { get; set; }
-        public int? Remainingprofiles { get; set; }
-        public bool? Isblocked { get; set; }
-        public DateTime? Updatedtime { get; set; }
+        public int Id { get; set; }
+        public int? UserId { get; set; }
+        public int? AllowedProfileCount { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public int? Updatedby { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

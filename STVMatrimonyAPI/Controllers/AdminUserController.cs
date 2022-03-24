@@ -15,14 +15,14 @@ namespace STVMatrimonyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminUserController : ControllerBase
+    public class UserDetailsController : ControllerBase
     {
-        public IAdminUserRepository _Repository;
+        public IUserDetailsRepository _Repository;
         private readonly IOptions<Model.APIConfiguration> _apiConfiguration;
         private readonly IMailService _mailService;
       
 
-        public AdminUserController(IAdminUserRepository adminRepository,IOptions<Model.APIConfiguration> apiConfig,IMailService mailService)
+        public UserDetailsController(IUserDetailsRepository adminRepository,IOptions<Model.APIConfiguration> apiConfig,IMailService mailService)
         {
             _Repository = adminRepository;
             _apiConfiguration = apiConfig;
@@ -31,14 +31,14 @@ namespace STVMatrimonyAPI.Controllers
         }
         
         [HttpPost("[action]")]
-        public async Task<IActionResult> InsertAdminUser(AdminUser request)
+        public async Task<IActionResult> InsertUserDetails(UserDetails request)
         {
 
             if (!string.IsNullOrWhiteSpace(request.Password))
             {
                 request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
             }
-            var result = await _Repository.InsertAdminUser(request);
+            var result = await _Repository.InsertUserDetails(request);
             if (result > 0)
             {
                 Model.MailRequest mailRequest = new Model.MailRequest()
@@ -48,7 +48,7 @@ namespace STVMatrimonyAPI.Controllers
 
                 };
                 string strURL = HttpUtility.UrlEncode(Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, result.ToString()));
-                string strUserVerfication = _apiConfiguration.Value.STVHost + "AdminUser/Verify?t=" + strURL;
+                string strUserVerfication = _apiConfiguration.Value.STVHost + "UserDetails/Verify?t=" + strURL;
                 mailRequest.Body = "<h2>Your account has been created!</h2>" +
                     "<h4>Congratulations and welcome to STVMatrimony<h4>" +
                     "<a href='" + strUserVerfication + "'>Verify this email address </a>";
@@ -89,14 +89,14 @@ namespace STVMatrimonyAPI.Controllers
             return Ok(await _Repository.CheckUserNameExists(UserName));
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> InsertUpdateAdminUser(AdminUser request)
+        public async Task<IActionResult> InsertUpdateUserDetails(UserDetails request)
         {
 
             if (!string.IsNullOrWhiteSpace(request.Password))
             {
                 request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
             }
-            return Ok(await _Repository.InsertUpdateAdminUser(request));
+            return Ok(await _Repository.InsertUpdateUserDetails(request));
         }
 
 
@@ -126,9 +126,9 @@ namespace STVMatrimonyAPI.Controllers
             }
         }
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllAdminUsers()
+        public async Task<IActionResult> GetAllUserDetailss()
         {
-            return Ok(await _Repository.GetAllAdminUsers());
+            return Ok(await _Repository.GetAllUserDetailss());
         }
 
         /*[HttpGet("[action]")]

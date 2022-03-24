@@ -12,43 +12,43 @@ using Microsoft.Data.SqlClient;
 
 namespace STVMatrimonyAPI.Repository
 {
-    public class AdminUserRepository : IAdminUserRepository
+    public class UserDetailsRepository : IUserDetailsRepository
     {
         
         DatawarehouseContext _dbContext;
-        public AdminUserRepository(DatawarehouseContext dbContext)
+        public UserDetailsRepository(DatawarehouseContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<int> InsertAdminUser(AdminUser request)
+        public async Task<int> InsertUserDetails(UserDetails request)
         {
             try
             {
-                return await InsertUpdateAdminUser(request);
+                return await InsertUpdateUserDetails(request);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<int> InsertUpdateAdminUser(AdminUser request)
+        public async Task<int> InsertUpdateUserDetails(UserDetails request)
         {
             try
             {
-                if (request.Id > 0)
+                if (request.UserId > 0)
                 {
-                    _ = _dbContext.AdminUser.Update(request);
+                    _ = _dbContext.UserDetails.Update(request);
                     int result = await _dbContext.SaveChangesAsync();
-                    return (result == 1) ? request.Id : 0;
+                    return (result == 1) ? request.UserId : 0;
                 }
                 else
                 {
                     // for first register set email verified to false and send a email verification link to user
                     request.IsEmailVerified = false;
                     request.IsActive = false;
-                    _ = _dbContext.AdminUser.Add(request);
+                    _ = _dbContext.UserDetails.Add(request);
                     int result = await _dbContext.SaveChangesAsync();
-                    return (result == 1) ? request.Id : 0;
+                    return (result == 1) ? request.UserId : 0;
                 }
             }
             catch (Exception ex)
@@ -59,19 +59,19 @@ namespace STVMatrimonyAPI.Repository
 
         public async Task<string>AuthenticateUserDetails(AuthenticateUserDetailsRequest request)
         {
-            IQueryable<AdminUser> query = _dbContext.AdminUser.AsNoTracking().Where(i => i.Username.Equals(request.UserName) && i.Password.Equals(request.Password));
-            AdminUser user = await query.FirstOrDefaultAsync();
+            IQueryable<UserDetails> query = _dbContext.UserDetails.AsNoTracking().Where(i => i.Username.Equals(request.UserName) && i.Password.Equals(request.Password));
+            UserDetails user = await query.FirstOrDefaultAsync();
             return user != null ? "Success" : "Invalid username or password";
         }
-        public async Task<AdminUser> GetUserAdmin(AuthenticateUserDetailsRequest request)
+        public async Task<UserDetails> GetUserAdmin(AuthenticateUserDetailsRequest request)
         {
-            IQueryable<AdminUser> query = _dbContext.AdminUser.AsNoTracking().Where(i => i.Username.Equals(request.UserName));
-            AdminUser user = await query.FirstOrDefaultAsync();
+            IQueryable<UserDetails> query = _dbContext.UserDetails.AsNoTracking().Where(i => i.Username.Equals(request.UserName));
+            UserDetails user = await query.FirstOrDefaultAsync();
             return user ?? null;
         }
-        public async Task<IEnumerable<AdminUser>> GetAllAdminUsers()
+        public async Task<IEnumerable<UserDetails>> GetAllUserDetailss()
         {
-            IQueryable<AdminUser> query = _dbContext.AdminUser.AsNoTracking();
+            IQueryable<UserDetails> query = _dbContext.UserDetails.AsNoTracking();
             return await query.ToListAsync();
         }
 
@@ -85,7 +85,7 @@ namespace STVMatrimonyAPI.Repository
 
                     try
                     {
-                        command.CommandText = "Update AdminUser set IsEmailVerified = 1,IsActive=1 where Id = @ID";
+                        command.CommandText = "Update UserDetails set IsEmailVerified = 1,IsActive=1 where Id = @ID";
                         command.CommandType = CommandType.Text;
                         command.Parameters.Add(new SqlParameter("@ID", UserId));
                         _dbContext.Database.OpenConnection();
@@ -113,7 +113,7 @@ namespace STVMatrimonyAPI.Repository
             bool result = false;
             try
             {
-                var _email = await _dbContext.AdminUser.AsNoTracking().Where(i => i.Email == EmailId).FirstOrDefaultAsync();
+                var _email = await _dbContext.UserDetails.AsNoTracking().Where(i => i.Email == EmailId).FirstOrDefaultAsync();
                 result = _email != null;
             }
             catch
@@ -127,7 +127,7 @@ namespace STVMatrimonyAPI.Repository
             bool result = false;
             try
             {
-                var _email = await _dbContext.AdminUser.AsNoTracking().Where(i => i.Username == UserName).FirstOrDefaultAsync();
+                var _email = await _dbContext.UserDetails.AsNoTracking().Where(i => i.Username == UserName).FirstOrDefaultAsync();
                 result = _email != null;
             }
             catch

@@ -19,13 +19,13 @@ namespace STVMatrimony.Models
         {
         }
 
-        public virtual DbSet<AdminUser> AdminUser { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<Customeractivation> Customeractivation { get; set; }
-        public virtual DbSet<Photos> Photos { get; set; }
-        public virtual DbSet<Preferences> Preferences { get; set; }
-        public virtual DbSet<VwAdminUser> VwAdminUser { get; set; }
-        public virtual DbSet<VwCustomerBasicInfo> VwCustomerBasicInfo { get; set; }
+        public virtual DbSet<ProfileDetails> ProfileDetails { get; set; }
+        public virtual DbSet<ProfileLogCount> ProfileLogCount { get; set; }
+        public virtual DbSet<ProfilePic> ProfilePic { get; set; }
+        public virtual DbSet<RoleMaster> RoleMaster { get; set; }
+        public virtual DbSet<UserDetails> UserDetails { get; set; }
+        public virtual DbSet<UserProfileLogs> UserProfileLogs { get; set; }
+        public virtual DbSet<UserdetailsActivation> UserdetailsActivation { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,51 +38,14 @@ namespace STVMatrimony.Models
         {
             modelBuilder.HasAnnotation("Relational:DefaultSchema", "Maadhu");
 
-            modelBuilder.Entity<AdminUser>(entity =>
+            modelBuilder.Entity<ProfileDetails>(entity =>
             {
-                entity.HasIndex(e => e.Username)
-                    .HasName("UQ__AdminUse__F3DBC57268F3C8A6")
-                    .IsUnique();
+                entity.HasKey(e => e.ProfileId)
+                    .HasName("PK__ProfileD__290C88E42FB66C9A");
 
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Email)
-                    .HasColumnName("email")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.IsActive).HasColumnName("isActive");
-
-                entity.Property(e => e.IsEmailVerified).HasColumnName("isEmailVerified");
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasColumnName("password")
-                    .HasMaxLength(300)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Username)
-                    .HasColumnName("username")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Customer>(entity =>
-            {
-                entity.ToTable("customer");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Aboutme)
-                    .HasColumnName("aboutme")
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Age).HasColumnName("age");
-
-                entity.Property(e => e.Assets)
-                    .HasColumnName("assets")
-                    .HasMaxLength(50)
+                entity.Property(e => e.Assetdetails)
+                    .HasColumnName("assetdetails")
+                    .HasMaxLength(250)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Birthplace)
@@ -90,8 +53,14 @@ namespace STVMatrimony.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Bloodgroup)
-                    .HasColumnName("bloodgroup")
+                entity.Property(e => e.Caste)
+                    .IsRequired()
+                    .HasColumnName("caste")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Color)
+                    .HasColumnName("color")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
@@ -104,116 +73,17 @@ namespace STVMatrimony.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Expectations)
-                    .HasColumnName("expectations")
-                    .HasMaxLength(50)
+                entity.Property(e => e.Exception)
+                    .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Income)
-                    .HasColumnName("income")
-                    .HasMaxLength(50)
+                entity.Property(e => e.Familydetails)
+                    .HasColumnName("familydetails")
+                    .HasMaxLength(250)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Sex)
-                    .HasColumnName("sex")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Star)
-                    .HasColumnName("star")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Subcaste)
-                    .HasColumnName("subcaste")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Customeractivation>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("customeractivation");
-
-                entity.Property(e => e.Custid).HasColumnName("custid");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Isblocked).HasColumnName("isblocked");
-
-                entity.Property(e => e.Remainingprofiles).HasColumnName("remainingprofiles");
-
-                entity.Property(e => e.Updatedby).HasColumnName("updatedby");
-
-                entity.Property(e => e.Updatedtime)
-                    .HasColumnName("updatedtime")
-                    .HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<Photos>(entity =>
-            {
-                entity.ToTable("photos");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.CustomerId).HasColumnName("customerId");
-
-                entity.Property(e => e.Navamsam)
-                    .HasColumnName("navamsam")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Pic1)
-                    .HasColumnName("pic1")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Pic2)
-                    .HasColumnName("pic2")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Pic3)
-                    .HasColumnName("pic3")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Pic4)
-                    .HasColumnName("pic4")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Raasi)
-                    .HasColumnName("raasi")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Preferences>(entity =>
-            {
-                entity.ToTable("preferences");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Agemax).HasColumnName("agemax");
-
-                entity.Property(e => e.Agemin).HasColumnName("agemin");
-
-                entity.Property(e => e.Complexion)
-                    .HasColumnName("complexion")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.CustomerId).HasColumnName("customerId");
-
-                entity.Property(e => e.Diet)
-                    .HasColumnName("diet")
+                entity.Property(e => e.Foodstyle)
+                    .HasColumnName("foodstyle")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
@@ -222,74 +92,147 @@ namespace STVMatrimony.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Maritialstatus)
-                    .HasColumnName("maritialstatus")
-                    .HasMaxLength(50)
+                entity.Property(e => e.Jobdetails)
+                    .HasColumnName("jobdetails")
+                    .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Subcaste)
-                    .HasColumnName("subcaste")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Weight)
-                    .HasColumnName("weight")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<VwAdminUser>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("VwAdminUser");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-
-                entity.Property(e => e.Username)
-                    .HasColumnName("username")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<VwCustomerBasicInfo>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("VwCustomerBasicInfo");
-
-                entity.Property(e => e.Age).HasColumnName("age");
-
-                entity.Property(e => e.Education)
-                    .HasColumnName("education")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasColumnName("name")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Pic1)
-                    .HasColumnName("pic1")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Pic2)
-                    .HasColumnName("pic2")
-                    .HasMaxLength(150)
+                entity.Property(e => e.Salary)
+                    .HasColumnName("salary")
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Sex)
                     .HasColumnName("sex")
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Star)
+                    .HasColumnName("star")
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<ProfileLogCount>(entity =>
+            {
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__ProfileL__1788CC4C5E34CA7C");
+
+                entity.Property(e => e.UserId).ValueGeneratedNever();
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<ProfilePic>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Navamsam)
+                    .HasColumnName("navamsam")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic1)
+                    .HasColumnName("pic1")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic2)
+                    .HasColumnName("pic2")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic3)
+                    .HasColumnName("pic3")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Raasi)
+                    .HasColumnName("raasi")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<RoleMaster>(entity =>
+            {
+                entity.HasKey(e => e.RoleId)
+                    .HasName("PK__RoleMast__8AFACE1A6584E25A");
+
+                entity.Property(e => e.RoleName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<UserDetails>(entity =>
+            {
+                entity.HasKey(e => e.Username)
+                    .HasName("PK__UserDeta__536C85E510B2E243");
+
+                entity.HasIndex(e => e.Email)
+                    .HasName("UQ__UserDeta__A9D10534ACFDE2BF")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.MobileNumber)
+                    .HasName("UQ__UserDeta__250375B1E07E8AA0")
+                    .IsUnique();
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MobileNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<UserProfileLogs>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.ViewedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<UserdetailsActivation>(entity =>
+            {
+                entity.ToTable("userdetailsActivation");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasColumnName("updatedAt")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Updatedby).HasColumnName("updatedby");
             });
 
             OnModelCreatingPartial(modelBuilder);
