@@ -12,11 +12,11 @@ using Microsoft.Data.SqlClient;
 
 namespace STVMatrimonyAPI.Repository
 {
-    public class UserDetailsRepository : IUserDetailsRepository
+    public class AdminRepository : IAdminRepository
     {
         
         DatawarehouseContext _dbContext;
-        public UserDetailsRepository(DatawarehouseContext dbContext)
+        public AdminRepository(DatawarehouseContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -57,57 +57,14 @@ namespace STVMatrimonyAPI.Repository
             }
         }
 
-        public async Task<string>AuthenticateUserDetails(AuthenticateUserDetailsRequest request)
-        {
-            IQueryable<UserDetails> query = _dbContext.UserDetails.AsNoTracking().Where(i => i.Username.Equals(request.UserName) && i.Password.Equals(request.Password));
-            UserDetails user = await query.FirstOrDefaultAsync();
-            return user != null ? "Success" : "Invalid username or password";
-        }
-        public async Task<UserDetails> GetUserAdmin(AuthenticateUserDetailsRequest request)
-        {
-            IQueryable<UserDetails> query = _dbContext.UserDetails.AsNoTracking().Where(i => i.Username.Equals(request.UserName));
-            UserDetails user = await query.FirstOrDefaultAsync();
-            return user ?? null;
-        }
+        
         public async Task<IEnumerable<UserDetails>> GetAllUserDetailss()
         {
             IQueryable<UserDetails> query = _dbContext.UserDetails.AsNoTracking();
             return await query.ToListAsync();
         }
 
-        public async Task<bool> Verify(int UserId)
-        {
-            bool result = false;
-            try
-            {
-                using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
-                {
-
-                    try
-                    {
-                        command.CommandText = "Update UserDetails set IsEmailVerified = 1,IsActive=1 where Id = @ID";
-                        command.CommandType = CommandType.Text;
-                        command.Parameters.Add(new SqlParameter("@ID", UserId));
-                        _dbContext.Database.OpenConnection();
-                        await command.ExecuteNonQueryAsync();
-                        result = true;
-                    }
-                    catch
-                    {
-                        result = false;
-                    }
-                    finally
-                    {
-                        _dbContext.Database.CloseConnection();
-                    }
-                }
-            }
-            catch
-            {
-                result = false;
-            }
-            return result;
-        }
+      
         public async Task<bool> CheckEmailExists(string EmailId)
         {
             bool result = false;

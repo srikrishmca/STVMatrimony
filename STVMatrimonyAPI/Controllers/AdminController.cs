@@ -15,14 +15,14 @@ namespace STVMatrimonyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserDetailsController : ControllerBase
+    public class AdminController: ControllerBase
     {
-        public IUserDetailsRepository _Repository;
+        public IAdminRepository _Repository;
         private readonly IOptions<Model.APIConfiguration> _apiConfiguration;
         private readonly IMailService _mailService;
       
 
-        public UserDetailsController(IUserDetailsRepository adminRepository,IOptions<Model.APIConfiguration> apiConfig,IMailService mailService)
+        public AdminController(IAdminRepository adminRepository,IOptions<Model.APIConfiguration> apiConfig,IMailService mailService)
         {
             _Repository = adminRepository;
             _apiConfiguration = apiConfig;
@@ -48,7 +48,7 @@ namespace STVMatrimonyAPI.Controllers
 
                 };
                 string strURL = HttpUtility.UrlEncode(Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, result.ToString()));
-                string strUserVerfication = _apiConfiguration.Value.STVHost + "UserDetails/Verify?t=" + strURL;
+                string strUserVerfication = _apiConfiguration.Value.STVHost + "Authenticate​/Verify?t=" + strURL;
                 mailRequest.Body = "<h2>Your account has been created!</h2>" +
                     "<h4>Congratulations and welcome to STVMatrimony<h4>" +
                     "<a href='" + strUserVerfication + "'>Verify this email address </a>";
@@ -61,23 +61,7 @@ namespace STVMatrimonyAPI.Controllers
             }
             
         }
-        [HttpGet("[action]")]
-        public async Task<IActionResult> Verify(string t)
-        {
-            string strUserId= Helper.DecryptString(_apiConfiguration.Value.STVEncryptionKey, t);
-            int UserId = Convert.ToInt32(strUserId);
-            //ToDo : Need to check its already verified.
-            var result = await _Repository.Verify(UserId);
-            if (result)
-            {
-              
-                return Ok(new AutoWrapper.Wrappers.ApiResponse("Congratulations now your account is verified"));
-            }
-            else
-            {
-                return Ok(new AutoWrapper.Wrappers.ApiResponse("Please contact STVMatrimony Admin"));
-            }
-        }
+       
         [HttpGet("[action]")]
         public async Task<IActionResult> CheckEmailExists(string EmailId)
         {
@@ -100,31 +84,7 @@ namespace STVMatrimonyAPI.Controllers
         }
 
 
-        [HttpPost("[action]")]
-
-        public async Task<IActionResult> AuthenticateUserDetails(AuthenticateUserDetailsRequest request)
-        {
-            if (!string.IsNullOrEmpty(request.UserName))
-            {
-                var user = await _Repository.GetUserAdmin(request);
-                if (user != null)
-                {
-                    if (!string.IsNullOrWhiteSpace(request.Password))
-                    {
-                        request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
-                    }
-                    return Ok(await _Repository.AuthenticateUserDetails(request));
-                }
-                else
-                {
-                    return Ok("Username not found.");
-                }
-            }
-            else
-            {
-                return Ok("Invalid username or password");
-            }
-        }
+       
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAllUserDetailss()
         {

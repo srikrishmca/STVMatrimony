@@ -39,7 +39,7 @@ namespace STVMatrimonyAPI
             services.AddOptions<Model.EMailConfiguration>().Bind(Configuration.GetSection("EMailConfiguration"));
             services.AddTransient<IMailService, Services.MailService>();
             // Register Repository
-            services.AddScoped<IUserDetailsRepository, UserDetailsRepository>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
             
             services.AddScoped<ICustomerInfoRepository, CustomerInfoRepository>();
             // Register the Swagger generator, defining 1 or more Swagger documents
