@@ -10,19 +10,19 @@
 <pages:PopupPage.Animation>
     <animations:MoveAnimation  PositionIn="Center" PositionOut="Center"/>
 </pages:PopupPage.Animation>
-    <Frame CornerRadius="15" OutlineColor="Black" HorizontalOptions="Center" VerticalOptions="Center">
-        <StackLayout HorizontalOptions="FillAndExpand" >
+    <Frame CornerRadius="15" OutlineColor="Gray" HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid  ColumnDefinitions="Auto,Auto" >
           
-                <ActivityIndicator  Color="Blue"
+                <ActivityIndicator  Color="Gray" Grid.Column="0"
                                         IsRunning="True"
                                         IsEnabled="True"
                                         VerticalOptions="Center"
                                         HorizontalOptions="Center"
-                                        HeightRequest="70"
-                                        WidthRequest="70"/>
+                                        HeightRequest="50"
+                                        WidthRequest="50"/>
                
            
-            <Label Text="Loading.." TextColor="Blue" FontSize="Large"/>
-        </StackLayout>
+            <Label Text="Loading.." TextColor="Gray" FontSize="Large" Grid.Column="1" VerticalOptions="Center"/>
+        </Grid>
     </Frame>
 </pages:PopupPage>
