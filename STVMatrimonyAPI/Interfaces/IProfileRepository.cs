@@ -12,6 +12,7 @@ namespace STVMatrimonyAPI.Interfaces
         Task<int> InsertUpdateProfileDetails(ProfileDetails request);
         Task<int> InsertUpdateProfilePicture(ProfilePic request);
         Task<IEnumerable<ProfileDetails>> GetAllProfiles();
+        Task<IEnumerable<VwBasicProfileDetailsInfo>> GetAllBasicProfiles();
         #endregion
 
 

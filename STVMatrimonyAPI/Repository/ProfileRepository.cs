@@ -71,6 +71,13 @@ namespace STVMatrimonyAPI.Repository
         {
             return await _dbContext.ProfileDetails.AsNoTracking().ToListAsync();
         }
+       
+
+        public async Task<IEnumerable<VwBasicProfileDetailsInfo>> GetAllBasicProfiles()
+        {
+            return await _dbContext.VwBasicProfileDetailsInfo.AsNoTracking().ToListAsync();
+        }
+   
         #endregion
 
         #region Profile Pic logs

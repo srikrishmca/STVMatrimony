@@ -26,6 +26,7 @@ namespace STVMatrimony.Models
         public virtual DbSet<UserDetails> UserDetails { get; set; }
         public virtual DbSet<UserProfileLogs> UserProfileLogs { get; set; }
         public virtual DbSet<UserdetailsActivation> UserdetailsActivation { get; set; }
+        public virtual DbSet<VwBasicProfileDetailsInfo> VwBasicProfileDetailsInfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -175,14 +176,14 @@ namespace STVMatrimony.Models
             modelBuilder.Entity<UserDetails>(entity =>
             {
                 entity.HasKey(e => e.Username)
-                    .HasName("PK__UserDeta__536C85E510B2E243");
+                    .HasName("PK__UserDeta__536C85E5D4497038");
 
                 entity.HasIndex(e => e.Email)
-                    .HasName("UQ__UserDeta__A9D10534ACFDE2BF")
+                    .HasName("UQ__UserDeta__A9D105345416B739")
                     .IsUnique();
 
                 entity.HasIndex(e => e.MobileNumber)
-                    .HasName("UQ__UserDeta__250375B1E07E8AA0")
+                    .HasName("UQ__UserDeta__250375B126B5A946")
                     .IsUnique();
 
                 entity.Property(e => e.Username)
@@ -233,6 +234,53 @@ namespace STVMatrimony.Models
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Updatedby).HasColumnName("updatedby");
+            });
+
+            modelBuilder.Entity<VwBasicProfileDetailsInfo>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VwBasicProfileDetailsInfo");
+
+                entity.Property(e => e.Birthplace)
+                    .HasColumnName("birthplace")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Caste)
+                    .IsRequired()
+                    .HasColumnName("caste")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Dob)
+                    .HasColumnName("dob")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Education)
+                    .HasColumnName("education")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic1)
+                    .HasColumnName("pic1")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProfileId).HasColumnName("profileId");
+
+                entity.Property(e => e.Sex)
+                    .HasColumnName("sex")
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
