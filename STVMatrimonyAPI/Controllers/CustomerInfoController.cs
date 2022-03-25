@@ -8,6 +8,7 @@ namespace STVMatrimonyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   // [Filters.APIKeyAuth]
     public class CustomerInfoController : ControllerBase
     {
         public ICustomerInfoRepository _Repository;

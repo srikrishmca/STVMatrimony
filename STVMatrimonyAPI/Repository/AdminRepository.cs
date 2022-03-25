@@ -20,6 +20,8 @@ namespace STVMatrimonyAPI.Repository
         {
             _dbContext = dbContext;
         }
+
+        #region Userdetails codes start here 
         public async Task<int> InsertUserDetails(UserDetails request)
         {
             try
@@ -93,6 +95,15 @@ namespace STVMatrimonyAPI.Repository
             }
             return result;
         }
+        #endregion
+        #region Role Master
+        public async Task<IEnumerable<RoleMaster>> GetAllRoles()
+        {
+            return await _dbContext.RoleMaster.AsNoTracking().ToListAsync();
+        }
+        #endregion
+
+
 
     }
 }

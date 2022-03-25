@@ -15,6 +15,7 @@ namespace STVMatrimonyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Filters.APIKeyAuth]
     public class AdminController: ControllerBase
     {
         public IAdminRepository _Repository;
@@ -29,7 +30,8 @@ namespace STVMatrimonyAPI.Controllers
             _mailService = mailService;
 
         }
-        
+        #region Userdetails codes start here 
+
         [HttpPost("[action]")]
         public async Task<IActionResult> InsertUserDetails(UserDetails request)
         {
@@ -90,25 +92,14 @@ namespace STVMatrimonyAPI.Controllers
         {
             return Ok(await _Repository.GetAllUserDetailss());
         }
-
-        /*[HttpGet("[action]")]
-        public async Task<IActionResult> SendEmailTest()
+        #endregion
+        #region Role Master
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetAllRoles()
         {
-            Model.MailRequest mailRequest = new Model.MailRequest()
-            {
-                ToEmail = "stvmatrimony@gmail.com",
-                Subject = "Your account has been created!",
+            return Ok(await _Repository.GetAllRoles());
+        }
+        #endregion
 
-            };
-            mailRequest.Body = "<h2>Your account has been created!</h2>" +
-                "<h4>Congratulations and welcome to STVMatrimony<h4>" +
-                "<a href='" + string.Empty + "'Verify this email address </a>";
-            // Message display in Mobile app  
-            //"Welcome to STVMatrimony! Your account is ready,but there is one last step: please validate that you are indeed the owner of " + request.Email + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
-
-
-            await _mailService.SendRegisterEmailAsync(mailRequest);
-            return Ok("Email sent");
-        }*/
     }
 }

@@ -10,12 +10,13 @@ using STVMatrimony.Models.APIRequest;
 using STVMatrimony.Utility;
 using Microsoft.Extensions.Options;
 using System.Web;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace STVMatrimonyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Filters.APIKeyAuth]
     public class AuthenticateController : ControllerBase
     {
         public IAuthenticateRepository _Repository;
@@ -56,6 +57,7 @@ namespace STVMatrimonyAPI.Controllers
             return Ok(await _Repository.GetUserAdmin(request));
         }
         [HttpGet("[action]")]
+        [AllowAnonymous]
         public async Task<IActionResult> Verify(string t)
         {
             string strUserId = Helper.DecryptString(_apiConfiguration.Value.STVEncryptionKey, t);
