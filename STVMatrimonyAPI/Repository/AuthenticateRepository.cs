@@ -12,7 +12,7 @@ using Microsoft.Data.SqlClient;
 
 namespace STVMatrimonyAPI.Repository
 {
-    public class AuthenticateRepository
+    public class AuthenticateRepository : IAuthenticateRepository
     {
         DatawarehouseContext _dbContext;
         public AuthenticateRepository(DatawarehouseContext dbContext)

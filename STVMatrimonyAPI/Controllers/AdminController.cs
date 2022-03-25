@@ -50,7 +50,7 @@ namespace STVMatrimonyAPI.Controllers
 
                 };
                 string strURL = HttpUtility.UrlEncode(Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, result.ToString()));
-                string strUserVerfication = _apiConfiguration.Value.STVHost + "Authenticate​/Verify?t=" + strURL;
+                string strUserVerfication = _apiConfiguration.Value.STVHost  +"Authenticate/Verify?t=" + strURL;
                 mailRequest.Body = "<h2>Your account has been created!</h2>" +
                     "<h4>Congratulations and welcome to STVMatrimony<h4>" +
                     "<a href='" + strUserVerfication + "'>Verify this email address </a>";

@@ -25,7 +25,7 @@
                             </Grid>
                         </PanCake:PancakeView>
                         <!--#endregion-->
-
+                        <!--#region UserName-->
                         <Label Text="UserName" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                         <Frame  x:Name="NameFrame" Style="{StaticResource Base_FrameEntry}">
                             <Entry Placeholder="Enter your UserName"  Text="{Binding UserName.Value}" Style="{StaticResource Base_Entry}">
@@ -49,7 +49,8 @@
                 IsVisible="{Binding UserName.IsValid, Converter={xct:InvertedBoolConverter}}"
 				Text="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 				TextColor="{StaticResource FailColor}" />
-
+<!--#endregion-->
+                        <!-- #region Email -->
                         <Label Text="Email" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                         <Frame  x:Name="EmailFrame" Style="{StaticResource Base_FrameEntry}">
                             <Entry Placeholder="Enter your email"  Text="{Binding Email.Value}" Style="{StaticResource Base_Entry}">
@@ -73,7 +74,9 @@
                 IsVisible="{Binding Email.IsValid, Converter={xct:InvertedBoolConverter}}"
 				Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 				TextColor="{StaticResource FailColor}" />
-
+<!--#endregion-->
+                        
+                        <!--#region  Password-->
                         <Label Text="Password" Style="{StaticResource Body1_MulishSemiBold}"></Label>
                         <Frame
                 x:Name="PasswordFrame"
@@ -101,6 +104,36 @@
                 IsVisible="{Binding Password.IsValid, Converter={xct:InvertedBoolConverter}}"
 				Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 				TextColor="{StaticResource FailColor}" />
+                        <!--#endregion-->
+                        <!--#region  MobileNumber -->
+                        <Label Text="Mobile Number" Style="{StaticResource Body1_MulishSemiBold}"></Label>
+                        <Frame
+                x:Name="MobileNumberFrame"
+                Style="{StaticResource Base_FrameEntry}">
+                            <Entry  Placeholder="Enter your Mobile Number"
+                    ReturnCommand="{Binding LoginCommand}"
+                    Text="{Binding MobileNumber.Value}"  Style="{StaticResource Base_Entry}">
+                                <Entry.Behaviors>
+                                    <xct:UserStoppedTypingBehavior Command="{Binding ValidateCommand}"
+							CommandParameter="MobileNumber"  StoppedTypingTimeThreshold="50"
+                            ShouldDismissKeyboardAutomatically="False"/>
+                                </Entry.Behaviors>
+                                <Entry.Triggers>
+                                    <DataTrigger TargetType="Entry" Binding="{Binding Password.IsValid}" Value="False">
+                                        <Setter TargetName="MobileNumberFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                        <Setter TargetName="RegisterButton" Property="Button.IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Entry.Triggers>
+                                <Entry.Effects>
+                                    <xct:RemoveBorderEffect></xct:RemoveBorderEffect>
+                                </Entry.Effects>
+                            </Entry>
+                        </Frame>
+                        <Label
+                IsVisible="{Binding MobileNumber.IsValid, Converter={xct:InvertedBoolConverter}}"
+				Text="{Binding MobileNumber.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+				TextColor="{StaticResource FailColor}" />
+                        <!--#endregion-->
                         <Grid ColumnDefinitions="*,*">
                             <Button Grid.Column="0" x:Name="RegisterButton" IsEnabled="False"
             Command="{Binding MyCommand}" CommandParameter="Register" Margin="10"  Text="Register"

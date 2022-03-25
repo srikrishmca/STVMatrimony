@@ -7,13 +7,15 @@ using System.Collections.Generic;
 
 namespace STVMatrimony.Services.DBModels
 {
-    public partial class AdminUser
+    public partial class UserDetails
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
+        public string MobileNumber { get; set; }
         public bool IsEmailVerified { get; set; }
         public bool IsActive { get; set; }
+        public int UserRoleId { get; set; }
     }
 }

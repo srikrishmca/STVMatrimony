@@ -17,7 +17,8 @@ namespace STVMatrimony.ViewModels
         public ValidatableObject<string> UserName { get; set; }
         public ValidatableObject<string> Email { get; set; }
         public ValidatableObject<string> Password { get; set; }
-       
+        public ValidatableObject<string> MobileNumber { get; set; }
+
         private bool _IsRegistrationDone;
         public bool IsRegistrationDone
         {
@@ -45,11 +46,12 @@ namespace STVMatrimony.ViewModels
             UserName = new ValidatableObject<string>();
             Email = new ValidatableObject<string>();
             Password = new ValidatableObject<string>();
-
+            MobileNumber = new ValidatableObject<string>();
             UserName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "UserName is required." });
             Email.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A email is required." });
             Email.Validations.Add(new IsEmailRule<string> { ValidationMessage = "Email format is not correct" });
             Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
+            MobileNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "Mobile number is required." });
         }
         public RegisterViewModel()
         {
@@ -60,17 +62,10 @@ namespace STVMatrimony.ViewModels
             ValidateCommand = new Command<string>(ValidateCommandHandler);
             AddValidations();
         }
-       
+
         private bool ValidateRegister()
         {
-            if(Email.IsValid==false || Password.IsValid==false || UserName.IsValid==false)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return Email.IsValid && Password.IsValid != false && UserName.IsValid && MobileNumber.IsValid;
         }
         private async System.Threading.Tasks.Task DisplayAlert(string Message)
         {
@@ -88,20 +83,22 @@ namespace STVMatrimony.ViewModels
                 UserName.Validate();
                 Password.IsFirstTime = false;
                 Password.Validate();
+                MobileNumber.IsFirstTime = false;
+                MobileNumber.Validate();
                 #endregion
                 
                 try
                 {
                     if (ValidateRegister())
                     {
-                        ApiResponse<bool> checkEmail = await CommonService.Instance.GetResponseAsync<bool>("AdminUser/CheckEmailExists?EmailId=" + Email.Value);
+                        ApiResponse<bool> checkEmail = await CommonService.Instance.GetResponseAsync<bool>("Admin/CheckEmailExists?EmailId=" + Email.Value);
                         if (checkEmail.Result)
                         {
                             await Helpers.Controls.CommonMethod.HideLoading();
                             await DisplayAlert("Email already exists!");
                             return;
                         }
-                        ApiResponse<bool> checkUserName = await CommonService.Instance.GetResponseAsync<bool>("AdminUser/CheckUserNameExists?UserName=" + UserName.Value);
+                        ApiResponse<bool> checkUserName = await CommonService.Instance.GetResponseAsync<bool>("Admin/CheckUserNameExists?UserName=" + UserName.Value);
                         if (checkUserName.Result)
                         {
                             await Helpers.Controls.CommonMethod.HideLoading();
@@ -109,14 +106,16 @@ namespace STVMatrimony.ViewModels
                         }
                         else
                         {
-                            AdminUser adminUser = new AdminUser()
+                            UserDetails adminUser = new UserDetails()
                             {
                                 Email = Email.Value,
                                 Password = Password.Value,
                                 Username = UserName.Value,
-                                Id = 0,
+                                MobileNumber= MobileNumber.Value,
+                                UserId = 0,
+                                UserRoleId = 2, // Standard User
                             };
-                            ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, AdminUser>("AdminUser/InsertAdminUser", adminUser);
+                            ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, UserDetails>("Admin/InsertUserDetails", adminUser);
                             if (result != null)
                             {
                                 IsRegistrationDone = true;
