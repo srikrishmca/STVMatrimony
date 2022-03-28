@@ -76,6 +76,7 @@ namespace STVMatrimony.ViewModels
                     {
                         if (result.Result.Equals("Success"))
                         {
+                            DependencyService.Get<Interface.IUserPreferences>().SetValue("LoginUserId", "1");
                             await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
                         }
                         else
