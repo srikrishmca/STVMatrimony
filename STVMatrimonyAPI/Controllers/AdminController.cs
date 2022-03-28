@@ -38,7 +38,7 @@ namespace STVMatrimonyAPI.Controllers
 
             if (!string.IsNullOrWhiteSpace(request.Password))
             {
-                request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
+                request.Password = Helper.EncryptPasswordString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
             }
             var result = await _Repository.InsertUserDetails(request);
             if (result > 0)
@@ -49,7 +49,7 @@ namespace STVMatrimonyAPI.Controllers
                     Subject = "Your account has been created!",
 
                 };
-                string strURL = HttpUtility.UrlEncode(Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, result.ToString()));
+                string strURL = HttpUtility.UrlEncode(Helper.EncryptString(result.ToString()));
                 string strUserVerfication = _apiConfiguration.Value.STVHost  +"Authenticate/Verify?t=" + strURL;
                 mailRequest.Body = "<h2>Your account has been created!</h2>" +
                     "<h4>Congratulations and welcome to STVMatrimony<h4>" +
@@ -80,7 +80,7 @@ namespace STVMatrimonyAPI.Controllers
 
             if (!string.IsNullOrWhiteSpace(request.Password))
             {
-                request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
+                request.Password = Helper.EncryptPasswordString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
             }
             return Ok(await _Repository.InsertUpdateUserDetails(request));
         }

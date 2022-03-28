@@ -77,7 +77,21 @@ namespace STVMatrimonyAPI.Repository
         {
             return await _dbContext.VwBasicProfileDetailsInfo.AsNoTracking().ToListAsync();
         }
-   
+        public async Task<VwDetailProfileInfo> GetDetailProfileViewbyId(int ProfileId, int UserId)
+        {
+            var AllowedProfileCount = await _dbContext.ProfileLogCount.Where(i => i.UserId == UserId).Select(i => i.ProfileCount).FirstOrDefaultAsync();
+            if (AllowedProfileCount > 0)
+            {
+               // ToDo log the userid and profile Id values in user profile logs table. 
+                // Retrive the profile 
+                return await _dbContext.VwDetailProfileInfo.AsNoTracking().Where(i => i.ProfileId == ProfileId).FirstOrDefaultAsync();
+            }
+            else
+            {
+                return new VwDetailProfileInfo();
+            }
+        }
+
         #endregion
 
         #region Profile Pic logs

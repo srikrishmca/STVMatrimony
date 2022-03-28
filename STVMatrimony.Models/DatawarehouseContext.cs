@@ -27,6 +27,7 @@ namespace STVMatrimony.Models
         public virtual DbSet<UserProfileLogs> UserProfileLogs { get; set; }
         public virtual DbSet<UserdetailsActivation> UserdetailsActivation { get; set; }
         public virtual DbSet<VwBasicProfileDetailsInfo> VwBasicProfileDetailsInfo { get; set; }
+        public virtual DbSet<VwDetailProfileInfo> VwDetailProfileInfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -176,14 +177,14 @@ namespace STVMatrimony.Models
             modelBuilder.Entity<UserDetails>(entity =>
             {
                 entity.HasKey(e => e.Username)
-                    .HasName("PK__UserDeta__536C85E5D4497038");
+                    .HasName("PK__UserDeta__536C85E50CA74C2B");
 
                 entity.HasIndex(e => e.Email)
-                    .HasName("UQ__UserDeta__A9D105345416B739")
+                    .HasName("UQ__UserDeta__A9D10534245C587C")
                     .IsUnique();
 
                 entity.HasIndex(e => e.MobileNumber)
-                    .HasName("UQ__UserDeta__250375B126B5A946")
+                    .HasName("UQ__UserDeta__250375B172410C9A")
                     .IsUnique();
 
                 entity.Property(e => e.Username)
@@ -280,6 +281,109 @@ namespace STVMatrimony.Models
                 entity.Property(e => e.Sex)
                     .HasColumnName("sex")
                     .HasMaxLength(10)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VwDetailProfileInfo>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VwDetailProfileInfo");
+
+                entity.Property(e => e.Assetdetails)
+                    .HasColumnName("assetdetails")
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Birthplace)
+                    .HasColumnName("birthplace")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Caste)
+                    .IsRequired()
+                    .HasColumnName("caste")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Color)
+                    .HasColumnName("color")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Dob)
+                    .HasColumnName("dob")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Education)
+                    .HasColumnName("education")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Exception)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Familydetails)
+                    .HasColumnName("familydetails")
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Foodstyle)
+                    .HasColumnName("foodstyle")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Height)
+                    .HasColumnName("height")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Jobdetails)
+                    .HasColumnName("jobdetails")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Navamsam)
+                    .HasColumnName("navamsam")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic1)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic2)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pic3)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Raasi)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Salary)
+                    .HasColumnName("salary")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Sex)
+                    .HasColumnName("sex")
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Star)
+                    .HasColumnName("star")
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 

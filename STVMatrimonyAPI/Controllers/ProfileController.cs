@@ -39,6 +39,11 @@ namespace STVMatrimonyAPI.Controllers
         {
             return Ok(await _repository.GetAllBasicProfiles());
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetDetailProfileViewbyId(int ProfileId, int UserId)
+        {
+            return Ok(await _repository.GetDetailProfileViewbyId(ProfileId,UserId));
+        }
         #region Profile Pic logs
         [HttpPost("[action]")]
         public async Task<IActionResult> InsertUpdateProfileLogCount(ProfileLogCount request)

@@ -36,7 +36,7 @@ namespace STVMatrimonyAPI.Controllers
                 {
                     if (!string.IsNullOrWhiteSpace(request.Password))
                     {
-                        request.Password = Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
+                        request.Password = Helper.EncryptPasswordString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
                     }
                     return Ok(await _Repository.AuthenticateUserDetails(request));
                 }
@@ -60,7 +60,7 @@ namespace STVMatrimonyAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Verify(string t)
         {
-            string strUserId = Helper.DecryptString(_apiConfiguration.Value.STVEncryptionKey, t);
+            string strUserId = Helper.DecryptString(t);
             int UserId = Convert.ToInt32(strUserId);
             //ToDo : Need to check its already verified.
             var result = await _Repository.Verify(UserId);
