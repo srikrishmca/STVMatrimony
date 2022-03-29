@@ -41,7 +41,7 @@ namespace STVMatrimonyAPI.Repository
 
                     try
                     {
-                        command.CommandText = "Update UserDetails set IsEmailVerified = 1,IsActive=1 where Id = @ID";
+                        command.CommandText = "Update UserDetails set IsEmailVerified = 1,IsActive=1 where UserId = @ID";
                         command.CommandType = CommandType.Text;
                         command.Parameters.Add(new SqlParameter("@ID", UserId));
                         _dbContext.Database.OpenConnection();

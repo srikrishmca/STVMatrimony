@@ -60,7 +60,7 @@ namespace STVMatrimonyAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Verify(string t)
         {
-            string strUserId = Helper.DecryptString(t);
+            string strUserId = Helper.DecryptString(HttpUtility.UrlDecode(t));
             int UserId = Convert.ToInt32(strUserId);
             //ToDo : Need to check its already verified.
             var result = await _Repository.Verify(UserId);
