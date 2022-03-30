@@ -18,5 +18,7 @@ namespace STVMatrimony.APIModels
         public static string CheckUserNameExistsRequest = "Admin/CheckUserNameExists?UserName=";
         public static string InsertUserDetails = "Admin/InsertUserDetails";
         public static string GetAllBasicProfiles = "Profile/GetAllBasicProfiles";
+        public static string GetDetailPrfoileView = "Profile/GetDetailProfileViewbyId?ProfileId=";
+        //Profile/GetDetailProfileViewbyId?ProfileId=2&UserId=1
     }
 }

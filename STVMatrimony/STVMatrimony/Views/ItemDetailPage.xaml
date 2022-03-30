@@ -20,13 +20,13 @@
     <StackLayout Spacing="20" Padding="15" 
                  BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
 
-        <ff:CachedImage Source="{Binding SelectedCustomer.Pic1}"  >
+        <ff:CachedImage Source="{Binding SelectedCustomer.Pic1}"   HeightRequest="250"  WidthRequest="250" >
             
         </ff:CachedImage>
         <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto">
-            <Label Text="{Binding SelectedCustomer.Name}" Grid.Row="0" class="Headline2_FontAwesome" FontSize="24" />
-            <Label Text="{Binding SelectedCustomer.Age,StringFormat='{0:0 Yrs}'}" Grid.Row="1"  class="Headline4_MulishRegular"   />
-            <Label Text="{Binding SelectedCustomer.Education}"  Grid.Row="2" Style="{StaticResource LblDescription}"/>
+            <Label Text="{Binding SelectedCustomer.Name}" Grid.Row="0"  class="Headline4_MulishBold"   />
+            <Label Text="{Binding SelectedCustomer.Dob,StringFormat='{}{0:dd/MMM/yyyy}'}" Grid.Row="1" class="Headline2_MulishRegular"   />
+            <Label Text="{Binding SelectedCustomer.Education}"  Grid.Row="2"   class="Headline4_MulishRegular"   />
         </Grid>
        
        
