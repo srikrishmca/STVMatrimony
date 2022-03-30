@@ -17,14 +17,11 @@ namespace STVMatrimony
             {
                 Task.Run(async () => { await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}"); });
             }
-            else
-            {
-
-            }
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
+            DependencyService.Get<Interface.IUserPreferences>().ClearPreferencesValueAndKey();
             await Current.GoToAsync("//LoginPage");
         }
     }

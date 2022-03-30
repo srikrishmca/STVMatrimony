@@ -96,5 +96,16 @@ namespace STVMatrimony.Helpers.Validations
 
             return this.IsValid;
         }
+        public bool CustomValidate(string message)
+        {
+
+
+            Errors.Add(message);
+            IsValid = false;
+            IsButtonActive = false;
+
+
+            return this.IsValid;
+        }
     }
 }

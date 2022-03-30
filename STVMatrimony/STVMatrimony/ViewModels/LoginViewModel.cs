@@ -70,19 +70,13 @@ namespace STVMatrimony.ViewModels
                         UserName = UserName.Value
                     };
                     ApiResponse<string> result = await CommonService.Instance.PostResponseAsync<string, AuthenticateUserDetailsRequest>
-                        ("AdminUser/AuthenticateUserDetails", request);
+                        (ServiceConstants.AuthenticateUserDetails, request);
 
                     if (result.Result != null)
                     {
-                        if (result.Result.Equals("Success"))
-                        {
-                            DependencyService.Get<Interface.IUserPreferences>().SetValue("LoginUserId", "1");
-                            await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
-                        }
-                        else
-                        {
-                            await DisplayAlert(result.Result);
-                        }
+                        DependencyService.Get<Interface.IUserPreferences>().SetValue("LoginUserId", result.Result);
+                        await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+
                     }
                     else
                     {

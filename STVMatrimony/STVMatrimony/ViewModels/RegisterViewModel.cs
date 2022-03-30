@@ -91,14 +91,14 @@ namespace STVMatrimony.ViewModels
                 {
                     if (ValidateRegister())
                     {
-                        ApiResponse<bool> checkEmail = await CommonService.Instance.GetResponseAsync<bool>("Admin/CheckEmailExists?EmailId=" + Email.Value);
+                        ApiResponse<bool> checkEmail = await CommonService.Instance.GetResponseAsync<bool>(ServiceConstants.CheckEmailExistsRequest + Email.Value);
                         if (checkEmail.Result)
                         {
                             await Helpers.Controls.CommonMethod.HideLoading();
                             await DisplayAlert("Email already exists!");
                             return;
                         }
-                        ApiResponse<bool> checkUserName = await CommonService.Instance.GetResponseAsync<bool>("Admin/CheckUserNameExists?UserName=" + UserName.Value);
+                        ApiResponse<bool> checkUserName = await CommonService.Instance.GetResponseAsync<bool>(ServiceConstants.CheckUserNameExistsRequest + UserName.Value);
                         if (checkUserName.Result)
                         {
                             await Helpers.Controls.CommonMethod.HideLoading();
@@ -115,7 +115,7 @@ namespace STVMatrimony.ViewModels
                                 UserId = 0,
                                 UserRoleId = 2, // Standard User
                             };
-                            ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, UserDetails>("Admin/InsertUserDetails", adminUser);
+                            ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, UserDetails>(ServiceConstants.InsertUserDetails, adminUser);
                             if (result != null)
                             {
                                 IsRegistrationDone = true;

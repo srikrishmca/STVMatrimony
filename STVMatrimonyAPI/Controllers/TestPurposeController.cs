@@ -23,14 +23,14 @@
 //        [HttpGet("[action]")]
 //        public async Task<IActionResult> EncryptTestString(string val)
 //        {
-//            string strURL = _apiConfiguration.Value.STVHost + "Authenticate/Verify?t=" + HttpUtility.UrlEncode(Helper.EncryptString(_apiConfiguration.Value.STVEncryptionKey, val));
+//            string strURL = _apiConfiguration.Value.STVHost + "Authenticate/Verify?t=" + HttpUtility.UrlEncode(Helper.EncryptPasswordString(_apiConfiguration.Value.STVEncryptionKey, val));
 //            await Task.Delay(1);
 //            return Ok(strURL);
 //        }
 //        [HttpGet("[action]")]
 //        public async Task<IActionResult> DecryptTestString(string val)
 //        {
-//            string strURL = Helper.DecryptString(_apiConfiguration.Value.STVEncryptionKey, val);
+//            string strURL = Helper.DecryptPasswordString( _apiConfiguration.Value.STVEncryptionKey, HttpUtility.UrlDecode(val));
 //            await Task.Delay(1);
 //            return Ok(strURL);
 //        }

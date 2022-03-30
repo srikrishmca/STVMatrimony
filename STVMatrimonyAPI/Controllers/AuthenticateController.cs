@@ -34,11 +34,22 @@ namespace STVMatrimonyAPI.Controllers
                 var user = await _Repository.GetUserAdmin(request);
                 if (user != null)
                 {
-                    if (!string.IsNullOrWhiteSpace(request.Password))
+                    if (!string.IsNullOrWhiteSpace(user.Password))
                     {
-                        request.Password = Helper.EncryptPasswordString(_apiConfiguration.Value.STVEncryptionKey, request.Password);
+                        string DecryptPass = Helper.DecryptPasswordString(_apiConfiguration.Value.STVEncryptionKey, user.Password);
+                        if (!string.IsNullOrWhiteSpace(DecryptPass) && request.Password.Equals(DecryptPass))
+                        {
+                            return Ok(user.UserId);
+                        }
+                        else
+                        {
+                            return Ok("Invalid password.");
+                        }
                     }
-                    return Ok(await _Repository.AuthenticateUserDetails(request));
+                    else
+                    {
+                        return Ok("Password not found.");
+                    }
                 }
                 else
                 {
