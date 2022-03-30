@@ -18,18 +18,14 @@ namespace STVMatrimony.ViewModels
 
         public ObservableCollection<VwCustomerBasicInfo> Items { get; }
         public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
         public Command<VwCustomerBasicInfo> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "MATRIMONY";
+            ItemTapped = new Command<VwCustomerBasicInfo>(OnItemSelected);
             Items = new ObservableCollection<VwCustomerBasicInfo>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadLocalItemsCommand());
-
-            ItemTapped = new Command<VwCustomerBasicInfo>(OnItemSelected);
-
-            AddItemCommand = new Command(OnAddItem);
         }
 
         async Task ExecuteLoadLocalItemsCommand()
@@ -96,10 +92,7 @@ namespace STVMatrimony.ViewModels
             }
         }
 
-        private async void OnAddItem(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
-        }
+       
 
         async void OnItemSelected(VwCustomerBasicInfo item)
         {

@@ -8,10 +8,6 @@
              xmlns:local="clr-namespace:STVMatrimony.ViewModels"  
              xmlns:model="clr-namespace:STVMatrimony.Models"  
              x:Name="BrowseItemsPage">
-
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
-    </ContentPage.ToolbarItems>
     <StackLayout  BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
         <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
