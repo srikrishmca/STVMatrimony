@@ -10,7 +10,6 @@ namespace STVMatrimony
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             var LoginUserId=DependencyService.Get<Interface.IUserPreferences>().GetValue("LoginUserId");
             if (!string.IsNullOrEmpty(LoginUserId))

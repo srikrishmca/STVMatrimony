@@ -1,6 +1,6 @@
 ﻿using STVMatrimony.APIModels;
-using STVMatrimony.Models;
 using STVMatrimony.Services;
+using STVMatrimony.Services.DBModels;
 using STVMatrimony.Views;
 using System;
 using System.Collections.Generic;
@@ -14,17 +14,17 @@ namespace STVMatrimony.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private VwCustomerBasicInfo _selectedItem;
+        private VwBasicProfileDetailsInfo _selectedItem;
 
-        public ObservableCollection<VwCustomerBasicInfo> Items { get; }
+        public ObservableCollection<VwBasicProfileDetailsInfo> Items { get;  }
         public Command LoadItemsCommand { get; }
-        public Command<VwCustomerBasicInfo> ItemTapped { get; }
+        public Command<VwBasicProfileDetailsInfo> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "MATRIMONY";
-            ItemTapped = new Command<VwCustomerBasicInfo>(OnItemSelected);
-            Items = new ObservableCollection<VwCustomerBasicInfo>();
+            ItemTapped = new Command<VwBasicProfileDetailsInfo>(OnItemSelected);
+            Items = new ObservableCollection<VwBasicProfileDetailsInfo>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadLocalItemsCommand());
         }
 
@@ -35,10 +35,20 @@ namespace STVMatrimony.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
+                ApiResponse<IEnumerable<VwBasicProfileDetailsInfo>> result = await CommonService.Instance.GetResponseAsync<IEnumerable<VwBasicProfileDetailsInfo>>
+                    (ServiceConstants.GetAllBasicProfiles);
+
+                if (result.Result != null)
                 {
-                    Items.Add(item);
+                    foreach (VwBasicProfileDetailsInfo item in result.Result)
+                    {
+                        Items.Add(item);
+                    }
+                   
+                }
+                else
+                {
+
                 }
             }
             catch (Exception ex)
@@ -82,7 +92,7 @@ namespace STVMatrimony.ViewModels
             SelectedItem = null;
         }
 
-        public VwCustomerBasicInfo SelectedItem
+        public VwBasicProfileDetailsInfo SelectedItem
         {
             get => _selectedItem;
             set
@@ -94,7 +104,7 @@ namespace STVMatrimony.ViewModels
 
        
 
-        async void OnItemSelected(VwCustomerBasicInfo item)
+        async void OnItemSelected(VwBasicProfileDetailsInfo item)
         {
             if (item == null)
                 return;

@@ -19,8 +19,7 @@ namespace STVMatrimony.BootStrap
             _builder.RegisterType<LoginViewModel>();
             _builder.RegisterType<RegisterViewModel>();
 
-            // MockDataSource
-            _builder.RegisterType<Services.MockDataStore>();
+           
 
             _container = _builder.Build();
         }

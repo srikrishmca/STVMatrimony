@@ -1,4 +1,5 @@
-﻿using STVMatrimony.Models;
+﻿
+using STVMatrimony.Services.DBModels;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -9,9 +10,9 @@ namespace STVMatrimony.ViewModels
     [QueryProperty(nameof(Id), nameof(Id))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        private VwCustomerBasicInfo _SelectedCustomer;
+        private VwBasicProfileDetailsInfo _SelectedCustomer;
        
-        public VwCustomerBasicInfo SelectedCustomer
+        public VwBasicProfileDetailsInfo SelectedCustomer
         {
             get => _SelectedCustomer;
             set => SetProperty(ref _SelectedCustomer, value);
@@ -26,21 +27,21 @@ namespace STVMatrimony.ViewModels
             set
             {
                 _Id = value;
-                LoadItemId(Id);
+              //  LoadItemId(Id);
             }
         }
 
-        public async void LoadItemId(int itemId)
-        {
-            try
-            {
-                VwCustomerBasicInfo item = await DataStore.GetItemAsync(itemId);
-                SelectedCustomer = item;
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Failed to Load Item");
-            }
-        }
+        //public async void LoadItemId(int itemId)
+        //{
+        //    try
+        //    {
+        //        //VwBasicProfileDetailsInfo item = await DataStore.GetItemAsync(itemId);
+        //        //SelectedCustomer = item;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Debug.WriteLine("Failed to Load Item");
+        //    }
+        //}
     }
 }

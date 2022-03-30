@@ -12,8 +12,6 @@ namespace STVMatrimony
         public App()
         {
             InitializeComponent();
-             
-            DependencyService.Register<MockDataStore>();
             BootStrap.AppContainer.RegisterDependencies();
             MainPage = new AppShell();
         }

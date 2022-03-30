@@ -1,18 +1,12 @@
-﻿using STVMatrimony.Models;
-using STVMatrimony.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
 namespace STVMatrimony.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-       
-        public IDataStore<VwCustomerBasicInfo> DataStore => DependencyService.Get<IDataStore<VwCustomerBasicInfo>>();
-
         bool isBusy = false;
         public bool IsBusy
         {

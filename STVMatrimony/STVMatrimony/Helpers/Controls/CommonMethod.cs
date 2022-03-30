@@ -23,7 +23,7 @@ namespace STVMatrimony.Helpers.Controls
                 customLoader = new CustomActivityLoader(string.IsNullOrEmpty(message) ? "Loading.." : message);
                 await PopupNavigation.Instance.PushAsync(customLoader);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
         }
@@ -60,7 +60,7 @@ namespace STVMatrimony.Helpers.Controls
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
