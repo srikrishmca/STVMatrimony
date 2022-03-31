@@ -39,7 +39,7 @@ namespace STVMatrimony.ViewModels
             {
                 var LoginUserId = DependencyService.Get<Interface.IUserPreferences>().GetValue("LoginUserId");
                 ApiResponse<VwDetailProfileInfo> result = await CommonService.Instance.GetResponseAsync<VwDetailProfileInfo>
-                  (ServiceConstants.GetDetailPrfoileView + itemId + "&UserId="+ LoginUserId);
+                  (ServiceConstants.GetDetailPrfoileView + itemId + "&UserId=" + LoginUserId);
 
 
                 if (result.Result != null)
@@ -56,6 +56,10 @@ namespace STVMatrimony.ViewModels
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Item");
+            }
+            finally
+            {
+                await Helpers.Controls.CommonMethod.HideLoading();
             }
         }
     }

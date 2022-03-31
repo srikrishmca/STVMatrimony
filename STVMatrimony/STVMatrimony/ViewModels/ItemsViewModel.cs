@@ -107,8 +107,10 @@ namespace STVMatrimony.ViewModels
         async void OnItemSelected(VwBasicProfileDetailsInfo item)
         {
             if (item == null)
+            {
                 return;
-
+            }
+            await Helpers.Controls.CommonMethod.ShowLoading();
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.Id)}={item.ProfileId}");
         }

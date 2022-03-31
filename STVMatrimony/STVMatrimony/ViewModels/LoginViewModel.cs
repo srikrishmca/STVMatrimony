@@ -118,7 +118,7 @@ namespace STVMatrimony.ViewModels
         {
             switch (field)
             {
-                case "email": UserName.Validate(); break;
+                case "username": UserName.Validate(); break;
                 case "password": Password.Validate(); break;
             }
         }
