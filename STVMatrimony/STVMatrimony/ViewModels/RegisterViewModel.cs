@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace STVMatrimony.ViewModels
 {
@@ -89,41 +90,49 @@ namespace STVMatrimony.ViewModels
                 
                 try
                 {
+                
                     if (ValidateRegister())
                     {
-                        ApiResponse<bool> checkEmail = await CommonService.Instance.GetResponseAsync<bool>(ServiceConstants.CheckEmailExistsRequest + Email.Value);
-                        if (checkEmail.Result)
+                        if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                         {
-                            await Helpers.Controls.CommonMethod.HideLoading();
-                            await DisplayAlert("Email already exists!");
-                            return;
-                        }
-                        ApiResponse<bool> checkUserName = await CommonService.Instance.GetResponseAsync<bool>(ServiceConstants.CheckUserNameExistsRequest + UserName.Value);
-                        if (checkUserName.Result)
-                        {
-                            await Helpers.Controls.CommonMethod.HideLoading();
-                            await DisplayAlert("UserName already exists!");
+                            ApiResponse<bool> checkEmail = await CommonService.Instance.GetResponseAsync<bool>(ServiceConstants.CheckEmailExistsRequest + Email.Value);
+                            if (checkEmail.Result)
+                            {
+                                await Helpers.Controls.CommonMethod.HideLoading();
+                                await DisplayAlert("Email already exists!");
+                                return;
+                            }
+                            ApiResponse<bool> checkUserName = await CommonService.Instance.GetResponseAsync<bool>(ServiceConstants.CheckUserNameExistsRequest + UserName.Value);
+                            if (checkUserName.Result)
+                            {
+                                await Helpers.Controls.CommonMethod.HideLoading();
+                                await DisplayAlert("UserName already exists!");
+                            }
+                            else
+                            {
+                                UserDetails adminUser = new UserDetails()
+                                {
+                                    Email = Email.Value,
+                                    Password = Password.Value,
+                                    Username = UserName.Value,
+                                    MobileNumber = MobileNumber.Value,
+                                    UserId = 0,
+                                    UserRoleId = 2, // Standard User
+                                };
+                                ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, UserDetails>(ServiceConstants.InsertUserDetails, adminUser);
+                                if (result != null)
+                                {
+                                    IsRegistrationDone = true;
+                                    string strResult = "Your account is ready,but there is one last step: please validate that you are indeed the owner of " + Email.Value + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
+                                    ResultText = strResult;
+                                }
+                            }
                         }
                         else
                         {
-                            UserDetails adminUser = new UserDetails()
-                            {
-                                Email = Email.Value,
-                                Password = Password.Value,
-                                Username = UserName.Value,
-                                MobileNumber= MobileNumber.Value,
-                                UserId = 0,
-                                UserRoleId = 2, // Standard User
-                            };
-                            ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, UserDetails>(ServiceConstants.InsertUserDetails, adminUser);
-                            if (result != null)
-                            {
-                                IsRegistrationDone = true;
-                                string strResult = "Your account is ready,but there is one last step: please validate that you are indeed the owner of " + Email.Value + " using the link in the email you received after signup. If you don't verify your email address, the account might get disabled after some time. ";
-                                ResultText = strResult;
-                            }
+                            await Helpers.Controls.CommonMethod.HideLoading();
+                            await DisplayAlert("Please check your network connection.");
                         }
-
                     }
                     else
                     {

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace STVMatrimony.ViewModels
@@ -62,36 +63,44 @@ namespace STVMatrimony.ViewModels
             #endregion
             if (ValidateLogin())
             {
-                try
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
-                    AuthenticateUserDetailsRequest request = new AuthenticateUserDetailsRequest()
+                    try
                     {
-                        Password = Password.Value,
-                        UserName = UserName.Value
-                    };
-                    ApiResponse<string> result = await CommonService.Instance.PostResponseAsync<string, AuthenticateUserDetailsRequest>
-                        (ServiceConstants.AuthenticateUserDetails, request);
+                        AuthenticateUserDetailsRequest request = new AuthenticateUserDetailsRequest()
+                        {
+                            Password = Password.Value,
+                            UserName = UserName.Value
+                        };
+                        ApiResponse<string> result = await CommonService.Instance.PostResponseAsync<string, AuthenticateUserDetailsRequest>
+                            (ServiceConstants.AuthenticateUserDetails, request);
 
-                    if (result.Result != null)
-                    {
-                        DependencyService.Get<Interface.IUserPreferences>().SetValue("LoginUserId", result.Result);
-                        await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+                        if (result.Result != null)
+                        {
+                            DependencyService.Get<Interface.IUserPreferences>().SetValue("LoginUserId", result.Result);
+                            await Shell.Current.GoToAsync($"//{nameof(ItemsPage)}");
+
+                        }
+                        else
+                        {
+                            await DisplayAlert("Invalid username or password.");
+                        }
 
                     }
-                    else
+                    catch (System.Exception ex)
                     {
-                        await DisplayAlert("Invalid username or password.");
+                        await Helpers.Controls.CommonMethod.HideLoading();
+                        await DisplayAlert(ex.Message);
                     }
-                  
+                    finally
+                    {
+                        await Helpers.Controls.CommonMethod.HideLoading();
+                    }
                 }
-                catch (System.Exception ex)
+                else
                 {
                     await Helpers.Controls.CommonMethod.HideLoading();
-                    await DisplayAlert(ex.Message);
-                }
-                finally
-                {
-                    await Helpers.Controls.CommonMethod.HideLoading();
+                    await DisplayAlert("Please check your network connection.");
                 }
             }
             else

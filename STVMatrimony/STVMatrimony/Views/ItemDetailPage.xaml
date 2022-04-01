@@ -19,10 +19,20 @@
     </ContentPage.Resources>
     <StackLayout Spacing="20" Padding="15" 
                  BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
-
-        <ff:CachedImage Source="{Binding SelectedCustomer.Pic1}"   HeightRequest="250"  WidthRequest="250" >
-            
-        </ff:CachedImage>
+        <CarouselView ItemsSource="{Binding LstProfilePics}"  IndicatorView="indicatorView"
+                      FlowDirection="LeftToRight"
+                       HeightRequest="250"  WidthRequest="250">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <ff:CachedImage Source="{Binding ImageURL}">
+                    </ff:CachedImage>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <IndicatorView x:Name="indicatorView"
+                   IndicatorColor="DarkGray"
+                   SelectedIndicatorColor="Black"
+                   HorizontalOptions="Center" />
         <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto">
             <Label Text="{Binding SelectedCustomer.Name}" Grid.Row="0"  class="Headline4_MulishBold"   />
             <Label Text="{Binding SelectedCustomer.Dob,StringFormat='{}{0:dd/MMM/yyyy}'}" Grid.Row="1" class="Headline2_MulishRegular"   />
