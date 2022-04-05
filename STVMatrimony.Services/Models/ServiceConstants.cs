@@ -19,6 +19,7 @@ namespace STVMatrimony.APIModels
         public static string InsertUserDetails = "Admin/InsertUserDetails";
         public static string GetAllBasicProfiles = "Profile/GetAllBasicProfiles";
         public static string GetDetailPrfoileView = "Profile/GetDetailProfileViewbyId?ProfileId=";
+        public static string InsertUpdateProfileDetails = "profile/InsertUpdateProfileDetails";
         //Profile/GetDetailProfileViewbyId?ProfileId=2&UserId=1
     }
 }

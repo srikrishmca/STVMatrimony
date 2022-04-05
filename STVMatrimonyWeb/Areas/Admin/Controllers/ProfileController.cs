@@ -20,12 +20,14 @@ namespace STVMatrimonyWeb.Areas.Admin.Controllers
             try
             {                
 
-                ApiResponse<string> result = await CommonService.Instance.PostResponseAsync<string, ProfileDetails>
-                    (ServiceConstants.InsertUserDetails, profile);
-
-                if (result.Result != null)
+                ApiResponse<int> result = await CommonService.Instance.PostResponseAsync<int, ProfileDetails>
+                    (ServiceConstants.InsertUpdateProfileDetails, profile);
+                if (result! = null)
                 {
-                    return View();
+                    if (result.Result > 0)
+                    {
+                        return View();
+                    }
                 }
                 
                 
