@@ -1,0 +1,89 @@
+﻿@using STVMatrimony.Models
+@model STVMatrimony.Models.ProfileDetails
+
+
+@{
+    ViewData["Title"] = "Insert Profile Page";
+}
+
+<form id="addprofile" asp-controller="Profile" asp-action="InsertProfile" method="post">
+
+    <div class="container">
+        <div class="table-responsive">
+            <div class="table">
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Name :</td>
+                            <td> @Html.TextBoxFor(m => m.Name)</td>
+                            <td>Sex:</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.Sex,
+                                new SelectList(Enum.GetValues(typeof(Gender))),
+                                "Select Gender")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Education Details :</td>
+                            <td>@Html.TextBoxFor(m => m.Education)</td>
+                            <td>Caste :</td>
+                            <td>@Html.TextBoxFor(m => m.Caste)</td>
+                        </tr>
+                        <tr>
+                            <td>Job Description :</td>
+                            <td>@Html.TextBoxFor(m => m.Jobdetails)</td>
+                            <td>Salary :</td>
+                            <td>@Html.TextBoxFor(m => m.Salary)</td>
+                        </tr>
+                        <tr>
+                            <td>DOB :</td>
+                            <td>@Html.TextBoxFor(m => m.Dob)</td>
+                            <td>Star :</td>
+                            <td>@Html.TextBoxFor(m => m.Star)</td>
+                        </tr>
+                        <tr>
+                            <td>Birth Place :</td>
+                            <td>@Html.TextBoxFor(m => m.Birthplace)</td>
+                            <td>Food Style :</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.Foodstyle,
+                                new SelectList(Enum.GetValues(typeof(Food))),
+                                "Select Food Style")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Height :</td>
+                            <td>@Html.TextBoxFor(m => m.Height)</td>
+                            <td>Colour :</td>
+                            <td>@Html.TextBoxFor(m => m.Color)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Family Details :</td>
+                            <td>@Html.TextAreaFor(m => m.Familydetails)</td>
+                            <td>Asset Details :</td>
+                            <td>@Html.TextAreaFor(m => m.Assetdetails)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Expectaion :</td>
+                            <td>@Html.TextAreaFor(m => m.Exception)</td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-right">
+                                <button type="submit" class="btn btn-default">Insert Profile</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+@*<div class="text-center">
+    <h1 class="display-4">Insert Profile</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>*@
