@@ -84,7 +84,7 @@
                         <Button Grid.Column="1" IsEnabled="True" Command="{Binding RegisterCommand}"
             Margin="10"  Text="Register" Style="{StaticResource Base_Button}"/>
                     </Grid>
-                    <Label Text="{Binding ErrorText}" HorizontalTextAlignment="Center"
+                    <Label Text="{Binding ErrorText}" HorizontalOptions="Center"
 				TextColor="{StaticResource FailColor}" />
                 </StackLayout>
                
