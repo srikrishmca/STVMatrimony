@@ -19,7 +19,14 @@ namespace STVMatrimony.ViewModels
 
         public ValidatableObject<string> UserName { get; set; }
         public ValidatableObject<string> Password { get; set; }
+       
+        private string errorText = string.Empty;
 
+        public string ErrorText
+        {
+            get => errorText;
+            set => SetProperty(ref errorText, value);
+        }
         #endregion
 
         #region Commands
@@ -45,6 +52,7 @@ namespace STVMatrimony.ViewModels
             RegisterCommand = new Command(RegisterCommandHandler);
             ValidateCommand = new Command<string>(ValidateCommandHandler);
             AddValidations();
+            ErrorText = string.Empty;
         }    
         private async void RegisterCommandHandler(object obj)
         {
@@ -56,6 +64,7 @@ namespace STVMatrimony.ViewModels
         {
             await Helpers.Controls.CommonMethod.ShowLoading();
             #region Validation code 
+            ErrorText = string.Empty;
             UserName.IsFirstTime = false;
             UserName.Validate();
             Password.IsFirstTime = false;
@@ -100,7 +109,8 @@ namespace STVMatrimony.ViewModels
                 else
                 {
                     await Helpers.Controls.CommonMethod.HideLoading();
-                    await DisplayAlert("Please check your network connection.");
+                    ErrorText = "Please check your network connection";
+                    //await DisplayAlert("Please check your network connection.");
                 }
             }
             else

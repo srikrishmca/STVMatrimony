@@ -6,7 +6,7 @@
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:local="clr-namespace:STVMatrimony.ViewModels" 
-             xmlns:model="clr-namespace:STVMatrimony.Services.DBModels;assembly=STVMatrimony.Services"
+             xmlns:model="clr-namespace:STVMatrimony.Services.DBModels;assembly=STVMatrimony.Services" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Name="BrowseItemsPage">
     <StackLayout  BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
         <!--
@@ -15,33 +15,41 @@
     -->
         
         <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <CollectionView x:Name="ItemsListView"
+            <StackLayout>
+                <StackLayout IsVisible="{Binding IsEmpty,Converter={xct:InvertedBoolConverter}}">
+                    <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10" x:DataType="model:VwBasicProfileDetailsInfo" ColumnDefinitions="Auto,*" RowDefinitions="100" >
-                            <ff:CachedImage Source="{Binding Pic1}" Grid.Column="0" Grid.Row="0"   HeightRequest="100" WidthRequest="100">
-                                <ff:CachedImage.Transformations>
-                                    <ffTransformations:CircleTransformation />
-                                </ff:CachedImage.Transformations>
-                            </ff:CachedImage>
-                            <Grid Padding="10" Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,*" RowDefinitions="*,*,*">
-                                <Label Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" class="Headline4_MulishBold"   />
-                                <Label Text="{Binding Dob,StringFormat='{}{0:dd/MMM/yyyy}'}" Grid.Row="1" Grid.Column="0" class="Headline2_MulishRegular"   />
-                                <Label Text="{Binding Education}"  Grid.Row="2" Grid.ColumnSpan="2"   class="Headline4_MulishRegular"   />
-                            </Grid>
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer 
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10" x:DataType="model:VwBasicProfileDetailsInfo" ColumnDefinitions="Auto,*" RowDefinitions="100" >
+                                    <ff:CachedImage Source="{Binding Pic1}" Grid.Column="0" Grid.Row="0"   HeightRequest="100" WidthRequest="100">
+                                        <ff:CachedImage.Transformations>
+                                            <ffTransformations:CircleTransformation />
+                                        </ff:CachedImage.Transformations>
+                                    </ff:CachedImage>
+                                    <Grid Padding="10" Grid.Column="1" Grid.Row="0" ColumnDefinitions="*,*" RowDefinitions="*,*,*">
+                                        <Label Text="{Binding Name}" Grid.Row="0" Grid.ColumnSpan="2" class="Headline4_MulishBold"   />
+                                        <Label Text="{Binding Dob,StringFormat='{}{0:dd/MMM/yyyy}'}" Grid.Row="1" Grid.Column="0" class="Headline2_MulishRegular"   />
+                                        <Label Text="{Binding Education}"  Grid.Row="2" Grid.ColumnSpan="2"   class="Headline4_MulishRegular"   />
+                                    </Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
                                 CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </Grid.GestureRecognizers>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                        </TapGestureRecognizer>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                <Grid IsVisible="{Binding IsEmpty,Mode=TwoWay}" RowDefinitions="Auto"
+                      BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
+                    <Label Grid.Row="1"  FontSize="Title" Text="{Binding ErrorText}" HorizontalTextAlignment="Center"/>
+                </Grid>
+            </StackLayout>
         </RefreshView>
 
     </StackLayout>

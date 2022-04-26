@@ -19,36 +19,60 @@ namespace STVMatrimony.ViewModels
         public ObservableCollection<VwBasicProfileDetailsInfo> Items { get;  }
         public Command LoadItemsCommand { get; }
         public Command<VwBasicProfileDetailsInfo> ItemTapped { get; }
-
+        bool isEmpty = false;
+        public bool IsEmpty
+        {
+            get { return isEmpty; }
+            set { SetProperty(ref isEmpty, value); }
+        }
+        string errorText = string.Empty;
+        public string ErrorText
+        {
+            get { return errorText; }
+            set { SetProperty(ref errorText, value); }
+        }
         public ItemsViewModel()
         {
             Title = "MATRIMONY";
             ItemTapped = new Command<VwBasicProfileDetailsInfo>(OnItemSelected);
             Items = new ObservableCollection<VwBasicProfileDetailsInfo>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadLocalItemsCommand());
+            LoadItemsCommand = new Command(ExecuteLoadLocalItemsCommand);
+
         }
 
-        async Task ExecuteLoadLocalItemsCommand()
+        async void ExecuteLoadLocalItemsCommand()
         {
+            IsEmpty = false;
             IsBusy = true;
-
+            ErrorText = string.Empty;
+           // await Helpers.Controls.CommonMethod.ShowLoading();
             try
             {
-                Items.Clear();
-                ApiResponse<IEnumerable<VwBasicProfileDetailsInfo>> result = await CommonService.Instance.GetResponseAsync<IEnumerable<VwBasicProfileDetailsInfo>>
-                    (ServiceConstants.GetAllBasicProfiles);
-
-                if (result.Result != null)
+              
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
-                    foreach (VwBasicProfileDetailsInfo item in result.Result)
+                    Items.Clear();
+                    ApiResponse<IEnumerable<VwBasicProfileDetailsInfo>> result = await CommonService.Instance.GetResponseAsync<IEnumerable<VwBasicProfileDetailsInfo>>
+                        (ServiceConstants.GetAllBasicProfiles);
+
+                    if (result.Result != null)
                     {
-                        Items.Add(item);
+                        foreach (VwBasicProfileDetailsInfo item in result.Result)
+                        {
+                            Items.Add(item);
+                        }
+
                     }
-                   
+                    else
+                    {
+                        ErrorText = "No data available";
+                        IsEmpty = true;
+                    }
                 }
                 else
                 {
-
+                    ErrorText = "No network connection";
+                    IsEmpty = true;
                 }
             }
             catch (Exception ex)
@@ -58,6 +82,7 @@ namespace STVMatrimony.ViewModels
             finally
             {
                 IsBusy = false;
+              //  await Helpers.Controls.CommonMethod.HideLoading();
             }
         }
         //async Task ExecuteLoadItemsCommand()

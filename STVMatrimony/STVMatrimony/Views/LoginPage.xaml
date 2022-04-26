@@ -79,18 +79,13 @@
 				Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 				TextColor="{StaticResource FailColor}" />
                     <Grid ColumnDefinitions="*,*">
-                        <Button Grid.Column="0"
-            x:Name="LoginButton" IsEnabled="False"
-            Command="{Binding LoginCommand}"
-            Margin="10"  Text="Login"
-            Style="{StaticResource Base_Button}"/>
-                        <Button Grid.Column="1"
-             IsEnabled="True"
-            Command="{Binding RegisterCommand}"
-            Margin="10"  Text="Register"
-            Style="{StaticResource Base_Button}"/>
+                        <Button Grid.Column="0" x:Name="LoginButton" IsEnabled="False"
+            Command="{Binding LoginCommand}" Margin="10"  Text="Login" Style="{StaticResource Base_Button}"/>
+                        <Button Grid.Column="1" IsEnabled="True" Command="{Binding RegisterCommand}"
+            Margin="10"  Text="Register" Style="{StaticResource Base_Button}"/>
                     </Grid>
-                   
+                    <Label Text="{Binding ErrorText}" HorizontalTextAlignment="Center"
+				TextColor="{StaticResource FailColor}" />
                 </StackLayout>
                
             </ScrollView>
